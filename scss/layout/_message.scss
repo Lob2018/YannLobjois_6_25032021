@@ -1,0 +1,38 @@
+.user-message {
+    &-primary,
+    &-secondary {
+        @extend %animLoading;
+        display: flex;
+        position: fixed;
+        bottom: 0px;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        width: 100%;
+        z-index: 9998;
+    }
+    &-primary {
+        background-color: #901c1c;
+    }
+    &-secondary {
+        background-color: #d3573c;
+    }
+}
+
+.text--info {
+    max-width: 57em;
+    text-align: left;
+    z-index: 9999;
+    padding: .75em .75em;
+    color: black;
+    background-color: #d3573c;
+}
+
+.text--error {
+    max-width: 57em;
+    text-align: left;
+    z-index: 9999;
+    padding: .75em .75em;
+    color: white;
+    background-color: #901c1c;
+}

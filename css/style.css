@@ -1,0 +1,89 @@
+.user-message-primary, .user-message-secondary {
+  animation: fade 12s ease;
+  animation-fill-mode: both;
+}
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  95% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+  font-size: 17px;
+  box-sizing: border-box;
+  line-height: 1.5;
+}
+
+ul {
+  list-style-type: none;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Shrikhand", cursive;
+}
+
+.user-message-primary, .user-message-secondary {
+  display: flex;
+  position: fixed;
+  bottom: 0px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  z-index: 9998;
+}
+.user-message-primary {
+  background-color: #901c1c;
+}
+.user-message-secondary {
+  background-color: #d3573c;
+}
+
+.text--info {
+  max-width: 57em;
+  text-align: left;
+  z-index: 9999;
+  padding: 0.75em 0.75em;
+  color: black;
+  background-color: #d3573c;
+}
+
+.text--error {
+  max-width: 57em;
+  text-align: left;
+  z-index: 9999;
+  padding: 0.75em 0.75em;
+  color: white;
+  background-color: #901c1c;
+}
+
+/*# sourceMappingURL=style.css.map */

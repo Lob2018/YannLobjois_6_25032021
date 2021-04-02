@@ -1,0 +1,22 @@
+%fondBlanc {
+    background: map-get($couleurs, blanc);
+}
+
+%animLoading {
+    animation: fade 12s ease;
+    animation-fill-mode: both;
+    @keyframes fade {
+        0% {
+            opacity: 0;
+        }
+        5% {
+            opacity: 1;
+        }
+        95% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+}

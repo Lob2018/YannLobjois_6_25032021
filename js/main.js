@@ -21,7 +21,7 @@ let medias = [];
 var theTags = new Set();
 
 // Initialize to load the data, then factory it 
-loadData.loading('/data/FishEyeDataFR.json').then(data => {
+loadData.loading('data/FishEyeDataFR.json').then(data => {
     return factoring(data);
 }).then(code => {
     if (code == 0) {

@@ -14,6 +14,7 @@ class Media {
             this.image = "./img/" + objectContent.image;
         }
         this.like = 0;
+        this.description = objectContent.description;
     }
     addALike() {
         this.like++;

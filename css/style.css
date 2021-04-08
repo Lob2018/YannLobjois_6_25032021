@@ -67,6 +67,12 @@ h6 {
 .user-message-secondary {
   background-color: #d3573c;
 }
+.user-message__close {
+  position: absolute;
+  top: 0;
+  right: 0.5em;
+  cursor: pointer;
+}
 
 .text--info {
   max-width: 57em;

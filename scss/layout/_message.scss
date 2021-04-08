@@ -17,6 +17,12 @@
     &-secondary {
         background-color: #d3573c;
     }
+    &__close {
+        position: absolute;
+        top: 0;
+        right: 0.5em;
+        cursor: pointer;
+    }
 }
 
 .text--info {

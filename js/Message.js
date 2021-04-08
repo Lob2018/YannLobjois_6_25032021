@@ -29,7 +29,7 @@ class Message {
 
     // Render the first message, then the others by recursion 
     rendered() {
-        var preservedThis = this;
+        let preservedThis = this;
         preservedThis.bloc = preservedThis.createTheHtmlElement(preservedThis.messagesArray[0].type, preservedThis.messagesArray[0].message, preservedThis.messagesArray[0].resolution);
         document.body.insertBefore(preservedThis.bloc, document.body.firstChild);
         if (preservedThis.messagesArray[0].type === -1) {
@@ -37,12 +37,27 @@ class Message {
         } else {
             document.getElementsByClassName('user-message-secondary')[0].style.animationDuration = preservedThis.messagesArray[0].duration / 1000 + "s";
         }
+
         // Delay the next rendering
-        setTimeout(function() {
-            preservedThis.messagesArray.shift();
-            preservedThis.bloc.remove();
-            if (preservedThis.messagesArray.length > 0) preservedThis.rendered();
+        preservedThis.myTimer = setTimeout(function() {
+            preservedThis.stopRenderer(preservedThis);
         }, preservedThis.messagesArray[0].duration);
+
+        // Stop the rendering when the message is closed
+        let closeButton = preservedThis.bloc.getElementsByClassName('user-message__close')[0];
+        closeButton.onclick = function() { preservedThis.closeMessage(preservedThis) };
+
+    }
+
+    stopRenderer(preservedThis) {
+        preservedThis.messagesArray.shift();
+        preservedThis.bloc.remove();
+        if (preservedThis.messagesArray.length > 0) preservedThis.rendered();
+    }
+
+    closeMessage(preservedThis) {
+        preservedThis.stopRenderer(preservedThis);
+        clearTimeout(preservedThis.myTimer);
     }
 
     // Create the HTML bloc
@@ -52,9 +67,15 @@ class Message {
         let elementMessage = document.createElement('span');
         let elementResolution = document.createElement('span');
         let elementBr = document.createElement('br');
+        let elementClose = document.createElement('span');
         element.setAttribute("role", "alertdialog");
         elementMessage.textContent = message;
         element.appendChild(elementMessage);
+        elementClose.textContent = "\u2716";
+        elementClose.setAttribute("class", "user-message__close");
+        elementClose.setAttribute("aria-label", "Fermer ce message");
+        elementClose.setAttribute("title", "Fermer ce message");
+        element.appendChild(elementClose);
         if (type == -1) {
             element.setAttribute("aria-labelledby", "user-message-primary");
             bloc.setAttribute("class", "user-message-primary");
@@ -70,4 +91,6 @@ class Message {
         bloc.appendChild(element);
         return bloc;
     }
+
+
 }

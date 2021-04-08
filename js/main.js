@@ -20,6 +20,7 @@ let medias = [];
 // Instantiate the Set for tags
 var theTags = new Set();
 
+
 // Initialize to load the data, then factory it 
 loadData.loading('./data/FishEyeDataFR.json').then(data => {
     return factoring(data);

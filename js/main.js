@@ -1,4 +1,9 @@
-// Toogle the navigation menu
+// Import SASS for WebPack
+import "../scss/style.scss";
+import Message from './Message.js';
+import LoadData from './LoadData.js';
+import FishEyeFactory from './FishEyeFactory.js';
+//Toogle the navigation menu
 function toogleNav() {
     var x = document.getElementById("myTopnav");
     if (x.className === "topnav") {
@@ -7,6 +12,7 @@ function toogleNav() {
         x.className = "topnav";
     }
 }
+
 // Instantiate communication with the user
 const message = new Message();
 // Instantiate the data loader 
@@ -28,7 +34,7 @@ loadData.loading('./data/FishEyeDataFR.json').then(data => {
     if (code == 0) {
         main();
     }
-}).catch(err => {
+}).catch(() => {
     // If we have an error, explain it and propose a solution
     message.queue(-1, 12000, "Les données chargées sont corrompues.",
         "Vérifier la cohérence, et le format des données stockées.");

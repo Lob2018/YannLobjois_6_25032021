@@ -1,7 +1,7 @@
 /**
  * Load all the data from the JSON file
  */
-class LoadData {
+export default class LoadData {
     loading(path) {
         // JSON photographers feed
         return fetch(path)

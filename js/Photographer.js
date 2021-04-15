@@ -1,7 +1,7 @@
 /**
  * The photographer object
  */
-class Photographer {
+export default class Photographer {
 
     constructor(objectContent) {
         this.name = objectContent.name;

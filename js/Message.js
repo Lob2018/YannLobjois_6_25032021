@@ -3,7 +3,7 @@
  * type 0 for normal message and -1 for error
  * Singleton design pattern
  */
-class Message {
+export default class Message {
     static instance;
     constructor() {
         if (Message.instance) {
@@ -71,10 +71,10 @@ class Message {
         element.setAttribute("role", "alertdialog");
         elementMessage.textContent = message;
         element.appendChild(elementMessage);
-        elementClose.textContent = "\u2716";
         elementClose.setAttribute("class", "user-message__close");
         elementClose.setAttribute("aria-label", "Fermer ce message");
         elementClose.setAttribute("title", "Fermer ce message");
+        elementClose.setAttribute("tabindex", "0");
         element.appendChild(elementClose);
         if (type == -1) {
             element.setAttribute("aria-labelledby", "user-message-primary");

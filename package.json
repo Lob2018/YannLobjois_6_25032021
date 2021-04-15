@@ -1,0 +1,42 @@
+{
+    "name": "yannlobjois_6_25032021",
+    "version": "1.0.0",
+    "description": "FishEye",
+    "main": "index.html",
+    "dependencies": {
+        "autoprefixer": "^9.0.0",
+        "css-loader": "^5.2.1",
+        "postcss": "^8.0.0",
+        "postcss-loader": "^3.0.0",
+        "style-loader": "^2.0.0"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.13.15",
+        "@babel/plugin-proposal-class-properties": "^7.13.0",
+        "@babel/plugin-transform-unicode-regex": "^7.12.13",
+        "@babel/preset-env": "^7.13.15",
+        "babel-loader": "^8.2.2",
+        "babel-polyfill": "^6.26.0",
+        "eslint": "^7.24.0",
+        "sass": "^1.32.8",
+        "sass-loader": "^11.0.1",
+        "webpack": "^5.33.2",
+        "webpack-cli": "^4.6.0",
+        "webpack-dev-server": "^3.11.2"
+    },
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "webpack",
+        "start": "webpack serve"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Lob2018/YannLobjois_6_25032021.git"
+    },
+    "author": "Lob2018",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/Lob2018/YannLobjois_6_25032021/issues"
+    },
+    "homepage": "https://github.com/Lob2018/YannLobjois_6_25032021#readme"
+}

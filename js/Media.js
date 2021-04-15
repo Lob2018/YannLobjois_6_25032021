@@ -1,7 +1,7 @@
 /**
  * The media object
  */
-class Media {
+export default class Media {
     constructor(objectContent) {
         this.id = objectContent.id;
         this.photographerId = objectContent.photographerId;

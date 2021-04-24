@@ -3,17 +3,19 @@ import "../scss/style.scss";
 import Message from './Message.js';
 import LoadData from './LoadData.js';
 import FishEyeFactory from './FishEyeFactory.js';
-//Toogle the navigation menu
-function toogleNav() {
-    var x = document.getElementById("myTopnav");
-    if (x.className === "topnav") {
-        x.className += " responsive";
-    } else {
-        x.className = "topnav";
-    }
-}
+import PageRenderer from "./PageRenderer";
+// //Toogle the navigation menu
+// function toogleNav() {
+//     var x = document.getElementById("myTopnav");
+//     if (x.className === "topnav") {
+//         x.className += " responsive";
+//     } else {
+//         x.className = "topnav";
+//     }
+// }
 
 // Instantiate communication with the user
+
 const message = new Message();
 // Instantiate the data loader 
 const loadData = new LoadData();
@@ -25,7 +27,8 @@ let photographers = [];
 let medias = [];
 // Instantiate the Set for tags
 var theTags = new Set();
-
+// Prepare the pages renderer
+var pageRenderer;
 
 // Initialize to load the data, then factory it 
 loadData.loading('./data/FishEyeDataFR.json').then(data => {
@@ -70,8 +73,56 @@ function factoring(data) {
 
 // The main program
 function main() {
-    photographers.forEach(element => {
-        console.log(element)
-    });
-    console.log(theTags);
+
+    // Listener for the navigation link to content
+    let mybutton = document.getElementsByClassName("btn-to-main")[0];
+    let lastScrollTop = 0;
+    document.addEventListener("scroll",
+        function() {
+            // pageYOffset for Apple/Safari and scrollTop for the others
+            var st = window.pageYOffset || document.documentElement.scrollTop;
+            if (document.body.scrollTop > 250 || document.documentElement.scrollTop > 250) {
+                if (st > lastScrollTop) {
+                    mybutton.style.display = "block";
+                } else if (st < lastScrollTop) {
+                    mybutton.style.display = "none";
+                }
+                lastScrollTop = st;
+            } else mybutton.style.display = "none";
+        }, false);
+
+    // Instanciate the pages renderer with the values
+    pageRenderer = new PageRenderer(theTags, photographers);
+
+
+    // Is it the Home page ?
+    let home = window.location.pathname.split("/").pop() === "index.html";
+
+    /* ONLY FORCE WITH WEBPACK SERVER */
+    home = true;
+
+    // Get the current page type
+    home ? homePage() : photographersPage();
 }
+
+
+
+
+
+/**
+ * THE HOME PAGE
+ */
+function homePage() {
+
+    // Create the clickable tags list in the header
+    pageRenderer.homeTheTags();
+
+
+
+}
+
+
+/**
+ * The photographers's page
+ */
+function photographersPage() {}

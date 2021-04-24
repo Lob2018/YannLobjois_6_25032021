@@ -1,0 +1,18 @@
+.index-categories {
+    display: flex;
+    margin-top: 58px;
+    padding: 0 2em;
+    & li {
+        padding: 0 0.15em;
+        & a {
+            vertical-align: top;
+            font-weight: 500;
+            font-size: map-get($size, indexTxtTag);
+            border: 0.7px solid map-get($couleurs, coulTagBorder);
+            color: map-get($couleurs, coulPrimaire);
+            padding: 0.2em 0.6em;
+            border-radius: 11px;
+            cursor: pointer;
+        }
+    }
+}

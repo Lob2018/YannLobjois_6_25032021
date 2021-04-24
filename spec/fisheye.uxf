@@ -1,0 +1,109 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>120</x><y>0</y><w>210</w><h>150</h></coordinates><panel_attributes>JSON - Phtographers
+--
+name:string
+id:number
+city:string
+country:string
+tags:string array 
+tagline:string
+price:number
+portrait:string
+group=1</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>340</x><y>0</y><w>210</w><h>150</h></coordinates><panel_attributes>JSON - Media
+--
+id:number
+photographerId:number
+image:string
+tags:string array
+likes:number
+date:string
+price:number
+description:string
+
+group=1</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>120</x><y>220</y><w>430</w><h>50</h></coordinates><panel_attributes>LoadData
+--
+loading(path) : object
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>90</x><y>340</y><w>480</w><h>50</h></coordinates><panel_attributes>FishEyeFactory (Factory Method)
+--
+createPhotography(type, objectContent) : Photographer OR Media Object</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>10</x><y>470</y><w>210</w><h>210</h></coordinates><panel_attributes>Media
+--
+id:number
+photographerId:number
+image:string
+tags:string array
+likes:number
+date:string
+price:number
+description:string
+mediaType:string
+path:string
+--
+Media(content : object)
+addALike : void
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>460</x><y>470</y><w>210</w><h>200</h></coordinates><panel_attributes>Photographer
+--
+name:string
+id:number
+city:string
+country:string
+tags:string array 
+tagline:string
+price:number
+portrait:string
+medias:Media array
+--
+Photographer(content : object)
+addMedia(media : Media) : void
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>0</x><y>1021</y><w>860</w><h>130</h></coordinates><panel_attributes>Message (Singleton)
+--
+static instance
+--
+queue(type : number , duration : number, message : string, resolution : string) : void
+checked(type : number, duration : number) : boolean
+rendered() : void
+stopRenderer(this) : void
+createTheHtmlElement(type : number, message : string, resolution : string) : HTMLDivElement</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>220</x><y>141</y><w>60</w><h>100</h></coordinates><panel_attributes>lt=-
+m1=1..*
+m2=1
+Load</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>141</y><w>60</w><h>100</h></coordinates><panel_attributes>lt=-
+m1=1..*
+m2=1
+Load</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>320</x><y>261</y><w>70</w><h>100</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=1
+Machine</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>480</x><y>661</y><w>70</w><h>100</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=1
+Render</panel_attributes><additional_attributes>10;10;10;80</additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>381</y><w>90</w><h>110</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=0..n
+Instanciate</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>40</x><y>671</y><w>60</w><h>370</h></coordinates><panel_attributes>lt=-
+m1=0..1
+m2=0..n
+Notify</panel_attributes><additional_attributes>10;10;10;350</additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>550</y><w>270</w><h>50</h></coordinates><panel_attributes>lt=-
+m1=0..n
+m2=1
+Photograph</panel_attributes><additional_attributes>10;20;250;20</additional_attributes></element><element><id>Relation</id><coordinates><x>620</x><y>660</y><w>60</w><h>380</h></coordinates><panel_attributes>lt=-
+m1=0..1
+m2=0..n
+Notify</panel_attributes><additional_attributes>10;10;10;360</additional_attributes></element><element><id>Relation</id><coordinates><x>660</x><y>560</y><w>140</w><h>480</h></coordinates><panel_attributes>lt=-
+m1=0..1
+m2=0..n
+Notify</panel_attributes><additional_attributes>10;20;100;20;100;460</additional_attributes></element><element><id>Relation</id><coordinates><x>560</x><y>350</y><w>280</w><h>690</h></coordinates><panel_attributes>lt=-
+m1=0..1
+m2=0..n
+Notify</panel_attributes><additional_attributes>10;20;240;20;240;670</additional_attributes></element><element><id>Relation</id><coordinates><x>540</x><y>230</y><w>340</w><h>810</h></coordinates><panel_attributes>lt=-
+m1=0..1
+m2=0..n
+Notify</panel_attributes><additional_attributes>10;20;300;20;300;790</additional_attributes></element><element><id>UMLClass</id><coordinates><x>210</x><y>745</y><w>370</w><h>140</h></coordinates><panel_attributes>PageRenderer
+--
+theTags:Set
+photographers: Photographer array
+photographersTagLinks:HTMLDivElement
+--
+PageRenderer(theTags : Set, photographers : Photographers array)
+homeTheTags()
+setTheTaggedPhotographer(tag : string)
+renderTheTaggedPhotographers()</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>120</x><y>382</y><w>90</w><h>110</h></coordinates><panel_attributes>lt=-
+m1=1
+m2=0..n
+Instanciate</panel_attributes><additional_attributes>10;10;10;90</additional_attributes></element></diagram>

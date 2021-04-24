@@ -1,0 +1,16 @@
+.btn-to-main {
+    display: none;
+    font-size: map-get($size, indexTxtToTop);
+    background-color: map-get($couleurs, coulBtn);
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 0.3em 0;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    line-height: 23px;
+    padding: 0.14em 0.5em;
+    cursor: pointer;
+}

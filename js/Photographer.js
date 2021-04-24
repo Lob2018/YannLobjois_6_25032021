@@ -9,6 +9,9 @@ export default class Photographer {
         this.city = objectContent.city;
         this.country = objectContent.country;
         this.tags = objectContent.tags;
+        this.tagline = objectContent.tagline
+        this.price = objectContent.price
+        this.portrait = objectContent.portrait
         this.medias = [];
     }
     addMedia(media) {

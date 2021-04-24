@@ -5,18 +5,20 @@ export default class Media {
     constructor(objectContent) {
         this.id = objectContent.id;
         this.photographerId = objectContent.photographerId;
-        this.tags = objectContent.tags;
         if (objectContent.image === undefined) {
             this.mediaType = "video";
-            this.video = "./videos/" + objectContent.video;
+            this.path = "./videos/" + objectContent.video;
         } else {
             this.mediaType = "image";
-            this.image = "./img/" + objectContent.image;
+            this.path = "./img/" + objectContent.image;
         }
-        this.like = 0;
+        this.tags = objectContent.tags;
+        this.likes = objectContent.likes;
+        this.date = objectContent.date;
+        this.price = objectContent.price;
         this.description = objectContent.description;
     }
-    addALike() {
-        this.like++;
+    like() {
+        // Local storage add or remove
     }
 }

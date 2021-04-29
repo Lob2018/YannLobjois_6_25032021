@@ -25,8 +25,12 @@ const factory = new FishEyeFactory();
 let photographers = [];
 // Instantiate the media list
 let medias = [];
+// Create the lowest price
+let lowPrice;
+// Create the highest price
+let highPrice;
 // Instantiate the Set for tags
-var theTags = new Set();
+const theTags = new Set();
 // Prepare the pages renderer
 var pageRenderer;
 
@@ -56,8 +60,12 @@ function factoring(data) {
     data.photographers.forEach(element => {
         photographers.push(factory.createPhotography("photographer", element));
     });
+    // Instanciate the highest and lowest price
+    lowPrice = highPrice = photographers[0].price;
     // Set all the tags, and add the photographer's medias objects
     for (let i = 0; i < photographers.length; i++) {
+        if (photographers[i].price < lowPrice) lowPrice = photographers[i].price;
+        if (photographers[i].price > highPrice) highPrice = photographers[i].price;
         for (let j = 0; j < medias.length; j++) {
             if (photographers[i].id === medias[j].photographerId) {
                 photographers[i].addMedia(medias[j])
@@ -92,7 +100,7 @@ function main() {
         }, false);
 
     // Instanciate the pages renderer with the values
-    pageRenderer = new PageRenderer(theTags, photographers);
+    pageRenderer = new PageRenderer(theTags, photographers, highPrice, lowPrice);
 
 
     // Is it the Home page ?
@@ -113,6 +121,9 @@ function main() {
  * THE HOME PAGE
  */
 function homePage() {
+
+    // Load the header JSON-LD web semantic
+    pageRenderer.homeSchemaJSON();
 
     // Create the clickable tags list in the header
     pageRenderer.homeTheTags();

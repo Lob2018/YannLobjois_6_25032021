@@ -71,11 +71,6 @@ export default class PageRenderer {
                 },
             }
         });
-
-        console.log(this.photographers)
-        this.writeStorage("id", 930)
-        this.photographersSchemaJSON();
-
     }
 
     // Photographers page : Add web semantics in the head of HTML in JSON-LD format

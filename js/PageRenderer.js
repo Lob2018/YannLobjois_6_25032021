@@ -79,8 +79,8 @@ export default class PageRenderer {
         if (this.photograph === undefined) this.photograph = this.photographers.filter(p => p.id === parseInt(this.readStorage("id"), 10))[0];
         // Get the lowest and the highest achievements's prices
         let photographerMedias = this.photograph.medias;
-        let photosHighestPrice = this.getArraysExtremes(photographerMedias, "price", "highest");
-        let photoLowestPrice = this.getArraysExtremes(photographerMedias, "price", "lowest");
+        let photosHighestPrice = this.getArraysExtremes(photographerMedias, "price", "max");
+        let photoLowestPrice = this.getArraysExtremes(photographerMedias, "price", "min");
         // Add web semantic
         let schemaElement = document.getElementById("dynamicJSONLD");
         schemaElement.text = JSON.stringify({
@@ -121,9 +121,9 @@ export default class PageRenderer {
         localStorage.setItem(item, value);
     }
 
-    // Get the highest or lowest from an array with an accumulator which will accumulate the callback's return value
+    // Get the max or min from an array with an accumulator of callback's return value
     getArraysExtremes(array, value, type) {
-        if (type === "lowest") {
+        if (type === "min") {
             return array.reduce(
                 (max, element) => (element[value] > max ? element[value] : max),
                 array[0][value]);

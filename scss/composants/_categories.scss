@@ -1,10 +1,32 @@
+nav[aria-label="photographers categories"] {
+    @include mobile {
+        order: 2;
+        flex: 1 0 100%;
+    }
+    @include laptop {
+        order: 2;
+        flex: 1 0 100%;
+    }
+}
+
 .index-categories {
     display: flex;
+    flex-wrap: wrap;
     margin-top: 58px;
     padding: 0 2em;
+    @include mobile {
+        margin-top: 18px;
+        justify-content: center;
+    }
+    @include laptop {
+        margin-top: 18px;
+        justify-content: center;
+    }
     & li {
         padding: 0 0.15em;
         & a {
+            position: relative;
+            z-index: 1;
             vertical-align: top;
             font-weight: 500;
             font-size: map-get($size, indexTxtTag);
@@ -13,6 +35,23 @@
             padding: 0.2em 0.6em;
             border-radius: 11px;
             cursor: pointer;
+        }
+        & a:hover::after {
+            opacity: 1;
+        }
+        & a::after {
+            z-index: -1;
+            content: "";
+            position: absolute;
+            top: 0px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 250ms;
+            color: map-get($couleurs, coulPrimaire);
+            background-color: map-get($couleurs, coulBgHover);
+            border-radius: 11px;
         }
     }
 }

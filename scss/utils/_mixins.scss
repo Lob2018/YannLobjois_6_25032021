@@ -1,5 +1,21 @@
-@mixin mobile-only {
-    @media all and (max-width: map-get($breakpoints, mobile)) {
+@mixin mobile {
+    @media all and (min-width: map-get($breakpoints, min-mobile)) {
+        @media all and (max-width: map-get($breakpoints, max-mobile)) {
+            @content;
+        }
+    }
+}
+
+@mixin laptop {
+    @media all and (max-width: map-get($breakpoints, max-laptop)) {
+        @media all and (min-width: map-get($breakpoints, min-laptop)) {
+            @content;
+        }
+    }
+}
+
+@mixin xlTV {
+    @media all and (min-width: map-get($breakpoints, xl-tv)) {
         @content;
     }
 }

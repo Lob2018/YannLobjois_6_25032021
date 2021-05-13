@@ -2,4 +2,12 @@ header {
     display: flex;
     justify-content: space-between;
     width: 100%;
+    @include mobile {
+        width: initial;
+        flex-wrap: wrap;
+    }
+    @include laptop {
+        width: initial;
+        flex-wrap: wrap;
+    }
 }

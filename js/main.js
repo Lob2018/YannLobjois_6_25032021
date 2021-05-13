@@ -4,27 +4,17 @@ import Message from './Message.js';
 import LoadData from './LoadData.js';
 import FishEyeFactory from './FishEyeFactory.js';
 import PageRenderer from "./PageRenderer";
-// //Toogle the navigation menu
-// function toogleNav() {
-//     var x = document.getElementById("myTopnav");
-//     if (x.className === "topnav") {
-//         x.className += " responsive";
-//     } else {
-//         x.className = "topnav";
-//     }
-// }
 
 // Instantiate communication with the user
-
 const message = new Message();
 // Instantiate the data loader 
 const loadData = new LoadData();
 // Instantiate the factory 
 const factory = new FishEyeFactory();
 // Instantiate the photographs list
-let photographers = [];
+const photographers = [];
 // Instantiate the media list
-let medias = [];
+const medias = [];
 // Create the lowest price
 let lowPrice;
 // Create the highest price
@@ -32,7 +22,7 @@ let highPrice;
 // Instantiate the Set for tags
 const theTags = new Set();
 // Prepare the pages renderer
-var pageRenderer;
+let pageRenderer;
 
 // Initialize to load the data, then factory it 
 loadData.loading('./data/FishEyeDataFR.json').then(data => {
@@ -128,7 +118,8 @@ function homePage() {
     // Create the clickable tags list in the header
     pageRenderer.homeTheTags();
 
-
+    // Create the photographers's cards
+    pageRenderer.homePhotographersCards();
 
 }
 

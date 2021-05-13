@@ -8,9 +8,30 @@ h6 {
 }
 
 .index__h1 {
+    @include mobile {
+        text-align: right;
+        flex: 1 0 30%;
+        order: 1;
+    }
+    @include laptop {
+        text-align: right;
+        flex: 1 0 30%;
+        order: 1;
+    }
     margin-right: 5rem;
     font-size: map-get($size, pageTxtNomMob);
     color: map-get($couleurs, coulPrimaire);
     margin-top: 44px;
     line-height: 47px;
+    white-space: nowrap;
+    @include mobile {
+        margin-top: 42px;
+        font-size: map-get($size, pageTxtDescMob);
+        margin-right: 1.2rem;
+    }
+    @include laptop {
+        margin-top: 42px;
+        font-size: map-get($size, pageTxtDescMob);
+        margin-right: 1.2rem;
+    }
 }

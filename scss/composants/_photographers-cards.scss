@@ -3,8 +3,8 @@
     justify-content: flex-start;
     flex-direction: row;
     flex-wrap: wrap;
-    margin: 0 3rem;
-    gap: 20%;
+    margin: 0 1.5rem;
+    gap: 12.5%;
     @include mobile {
         justify-content: center;
         gap: initial;
@@ -17,8 +17,8 @@
     }
     & .photographer-card {
         margin-top: 4em;
-        max-width: 20%;
-        min-width: 20%;
+        max-width: 25%;
+        min-width: 25%;
         text-align: center;
         @include mobile {
             &:nth-of-type(1) {
@@ -72,22 +72,16 @@
             }
             & h2 {
                 margin-top: 0.5em;
-                padding: 0 0.3em;
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 overflow: hidden;
-                width: 147%;
+                max-width: 100%;
                 font-size: map-get($size, pageTxtNomMob);
                 @include mobile {
                     margin-top: 0.3em;
-                    width: initial;
                 }
                 @include laptop {
                     margin-top: 0.3em;
-                    width: initial;
-                }
-                @include xlTV {
-                    width: initial;
                 }
             }
         }

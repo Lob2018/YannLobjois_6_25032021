@@ -112,6 +112,12 @@ function main() {
  */
 function homePage() {
 
+    // RAZ of the tag's filters on logo's click
+    const logo = document.getElementsByClassName("logo")[0];
+    logo.addEventListener("click", function() {
+        pageRenderer.homePhotographersCards();
+    }, true);
+
     // Load the header JSON-LD web semantic
     pageRenderer.homeSchemaJSON();
 

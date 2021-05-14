@@ -8,17 +8,11 @@ export default class PageRenderer {
         this.photographers = photographers;
         this.indexPhotographersTagLinks = document.getElementsByClassName("index-categories")[0];
         this.indexCardsElementContainer = document.getElementsByClassName("cards-photographs")[0];
+        this.indexCardsElementArray = [];
         this.photographsHighPrice = photographsHighPrice;
         this.photographsLowPrice = photographsLowPrice;
     }
 
-
-    // Show the tagged photographers
-    renderTheTaggedPhotographers() {
-        this.photographersFromTag.forEach(photographer => {
-            console.log(photographer.name)
-        })
-    }
 
     // Set the photographers by tag selection
     setTheTaggedPhotographers(tag) {
@@ -27,13 +21,13 @@ export default class PageRenderer {
         this.photographers.forEach(photographer => {
             if (photographer.tags.includes(tag)) this.photographersFromTag.push(photographer);
         });
-        this.renderTheTaggedPhotographers();
+        this.renderPhotographersCards(this.photographersFromTag);
     }
 
     // Home page : Create the clickable tags list in the header
     homeTheTags() {
         this.theTags.forEach(tag => {
-            let tagLink = document.createElement("A");
+            const tagLink = document.createElement("A");
             tagLink.setAttribute("role", "menuitem");
             tagLink.tabIndex = 0;
             tagLink.textContent = "#" + tag.charAt(0).toUpperCase() + tag.slice(1);
@@ -43,11 +37,11 @@ export default class PageRenderer {
 
     // Tag loop factorization (listener, add li, return list)
     tagLoopFactorization(tag, tagLink) {
-        let preservedThis = this;
+        const preservedThis = this;
         tagLink.addEventListener("click", function() {
             preservedThis.setTheTaggedPhotographers(tag);
         }, true);
-        let tagList = document.createElement("LI");
+        const tagList = document.createElement("LI");
         tagList.setAttribute("role", "none");
         tagList.appendChild(tagLink);
         return tagList;
@@ -55,7 +49,7 @@ export default class PageRenderer {
 
     // Home page : Add web semantics in the head of HTML in JSON-LD format
     homeSchemaJSON() {
-        let schemaElement = document.getElementById("dynamicJSONLD");
+        const schemaElement = document.getElementById("dynamicJSONLD");
         schemaElement.text = JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
@@ -80,75 +74,7 @@ export default class PageRenderer {
 
     // Home page : the photographers's cards
     homePhotographersCards() {
-
-        this.photographers.forEach(photographer => {
-            let card = document.createElement("article");
-            card.setAttribute("role", "contentinfo");
-            card.setAttribute("aria-label", "article");
-            card.classList.add("photographer-card");
-            let cardLink = document.createElement("a");
-            cardLink.setAttribute("role", "navigation");
-            cardLink.tabIndex = 0;
-            cardLink.href = "./html/photographer.html";
-            let preservedThis = this;
-            cardLink.addEventListener("click", function() {
-                preservedThis.writeStorage("id", photographer.id);
-            }, true);
-            // TEST
-            let photoJGP = "./img/photographers/" + photographer.id + ".jpg";
-            // PROD
-            // let photoJGP= window.location.pathname + "/img/photographers/" + + photographer.id + ".jpg";
-
-            let photoContainer = document.createElement("picture");
-            photoContainer.style.backgroundImage = "url('" + photoJGP + "')";
-
-            let photo = document.createElement("img");
-            photo.src = photoJGP;
-
-            photo.setAttribute("alt", photographer.name);
-            photoContainer.appendChild(photo);
-            cardLink.appendChild(photoContainer);
-            let titre = document.createElement("h2");
-            titre.textContent = photographer.name;
-            cardLink.appendChild(titre);
-            card.appendChild(cardLink);
-            let texte = document.createElement("P");
-            let texte1 = document.createElement("span");
-            let texte1CR = document.createElement("br");
-            let texte2 = document.createElement("span");
-            let texte2CR = document.createElement("br");
-            let texte3 = document.createElement("span");
-            texte1.textContent = photographer.city + ", " + photographer.country;
-            texte2.textContent = photographer.tagline;
-            texte3.textContent = photographer.price + "€/jour";
-            texte.appendChild(texte1);
-            texte.appendChild(texte1CR);
-            texte.appendChild(texte2);
-            texte.appendChild(texte2CR);
-            texte.appendChild(texte3);
-            card.appendChild(texte);
-
-
-            let tags = document.createElement("ul");
-            tags.classList.add("index-categories");
-            tags.classList.add("index-photographer-categories");
-            tags.setAttribute("role", "menubar");
-            tags.setAttribute("aria-label", "photographer categories");
-
-
-            photographer.tags.forEach(tag => {
-                let tagLink = document.createElement("A");
-                tagLink.setAttribute("role", "menuitem");
-                tagLink.tabIndex = 0;
-                tagLink.textContent = "#" + tag;
-                tags.appendChild(this.tagLoopFactorization(tag, tagLink));
-            });
-            card.appendChild(tags);
-
-            this.indexCardsElementContainer.appendChild(card);
-
-        });
-
+        this.renderPhotographersCards(this.photographers);
     }
 
     // Photographers page : Add web semantics in the head of HTML in JSON-LD format
@@ -156,11 +82,11 @@ export default class PageRenderer {
         // Get the Photograph with the stored id value
         if (this.photograph === undefined) this.photograph = this.photographers.filter(p => p.id === parseInt(this.readStorage("id"), 10))[0];
         // Get the lowest and the highest achievements's prices
-        let photographerMedias = this.photograph.medias;
-        let photosHighestPrice = this.getArraysExtremes(photographerMedias, "price", "max");
-        let photoLowestPrice = this.getArraysExtremes(photographerMedias, "price", "min");
+        const photographerMedias = this.photograph.medias;
+        const photosHighestPrice = this.getArraysExtremes(photographerMedias, "price", "max");
+        const photoLowestPrice = this.getArraysExtremes(photographerMedias, "price", "min");
         // Add web semantic
-        let schemaElement = document.getElementById("dynamicJSONLD");
+        const schemaElement = document.getElementById("dynamicJSONLD");
         schemaElement.text = JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Service",
@@ -182,6 +108,66 @@ export default class PageRenderer {
         });
     }
 
+    // Render the phtographers cards from an array
+    renderPhotographersCards(photographers) {
+        this.indexCardsElementArray = [];
+        photographers.forEach(photographer => {
+            const card = document.createElement("article");
+            card.setAttribute("role", "contentinfo");
+            card.setAttribute("aria-label", "article");
+            card.classList.add("photographer-card");
+            const cardLink = document.createElement("a");
+            cardLink.setAttribute("role", "navigation");
+            cardLink.tabIndex = 0;
+            cardLink.href = "./html/photographer.html";
+            const preservedThis = this;
+            cardLink.addEventListener("click", function() {
+                preservedThis.writeStorage("id", photographer.id);
+            }, true);
+            const photoJGP = "./img/photographers/" + photographer.id + ".jpg";
+            const photoContainer = document.createElement("picture");
+            photoContainer.style.backgroundImage = "url('" + photoJGP + "')";
+            const photo = document.createElement("img");
+            photo.src = photoJGP;
+            photo.setAttribute("alt", photographer.name);
+            photoContainer.appendChild(photo);
+            cardLink.appendChild(photoContainer);
+            const titre = document.createElement("h2");
+            titre.textContent = photographer.name;
+            cardLink.appendChild(titre);
+            card.appendChild(cardLink);
+            const texte = document.createElement("P");
+            const texte1 = document.createElement("span");
+            const texte1CR = document.createElement("br");
+            const texte2 = document.createElement("span");
+            const texte2CR = document.createElement("br");
+            const texte3 = document.createElement("span");
+            texte1.textContent = photographer.city + ", " + photographer.country;
+            texte2.textContent = photographer.tagline;
+            texte3.textContent = photographer.price + "€/jour";
+            texte.appendChild(texte1);
+            texte.appendChild(texte1CR);
+            texte.appendChild(texte2);
+            texte.appendChild(texte2CR);
+            texte.appendChild(texte3);
+            card.appendChild(texte);
+            const tags = document.createElement("ul");
+            tags.classList.add("index-categories");
+            tags.classList.add("index-photographer-categories");
+            tags.setAttribute("role", "menubar");
+            tags.setAttribute("aria-label", "photographer categories");
+            photographer.tags.forEach(tag => {
+                const tagLink = document.createElement("A");
+                tagLink.setAttribute("role", "menuitem");
+                tagLink.tabIndex = 0;
+                tagLink.textContent = "#" + tag;
+                tags.appendChild(this.tagLoopFactorization(tag, tagLink));
+            });
+            card.appendChild(tags);
+            this.indexCardsElementArray.push(card);
+        });
+        this.indexCardsElementContainer.replaceChildren(...this.indexCardsElementArray);
+    }
 
 
     // Like is pressed

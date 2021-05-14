@@ -29,7 +29,7 @@ export default class Message {
 
     // Render the first message, then the others by recursion 
     rendered() {
-        let preservedThis = this;
+        const preservedThis = this;
         preservedThis.bloc = preservedThis.createTheHtmlElement(preservedThis.messagesArray[0].type, preservedThis.messagesArray[0].message, preservedThis.messagesArray[0].resolution);
         document.body.insertBefore(preservedThis.bloc, document.body.firstChild);
         if (preservedThis.messagesArray[0].type === -1) {
@@ -44,7 +44,7 @@ export default class Message {
         }, preservedThis.messagesArray[0].duration);
 
         // Stop the rendering when the message is closed
-        let closeButton = preservedThis.bloc.getElementsByClassName('user-message__close')[0];
+        const closeButton = preservedThis.bloc.getElementsByClassName('user-message__close')[0];
         closeButton.onclick = function() { preservedThis.closeMessage(preservedThis) };
 
     }
@@ -62,12 +62,12 @@ export default class Message {
 
     // Create the HTML bloc
     createTheHtmlElement(type, message, resolution) {
-        let bloc = document.createElement('div');
-        let element = document.createElement('p');
-        let elementMessage = document.createElement('span');
-        let elementResolution = document.createElement('span');
-        let elementBr = document.createElement('br');
-        let elementClose = document.createElement('span');
+        const bloc = document.createElement('div');
+        const element = document.createElement('p');
+        const elementMessage = document.createElement('span');
+        const elementResolution = document.createElement('span');
+        const elementBr = document.createElement('br');
+        const elementClose = document.createElement('span');
         element.setAttribute("role", "alertdialog");
         elementMessage.textContent = message;
         element.appendChild(elementMessage);

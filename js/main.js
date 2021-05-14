@@ -73,7 +73,7 @@ function factoring(data) {
 function main() {
 
     // Listener for the navigation link to content
-    let mybutton = document.getElementsByClassName("btn-to-main")[0];
+    const mybutton = document.getElementsByClassName("btn-to-main")[0];
     let lastScrollTop = 0;
     document.addEventListener("scroll",
         function() {

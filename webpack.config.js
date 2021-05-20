@@ -3,7 +3,7 @@ module.exports = {
     mode: "production",
     entry: {
         polyfill: "babel-polyfill", // transpiler avec babel
-        app: "./js/main.js" // point d'entrée de app (app nom de l'appli)
+        app: "./js/controller/main.js" // point d'entrée de app (app nom de l'appli)
     },
     output: {
         filename: "[name].bundle.js", // bundler dans ./dist/app.bundle.js

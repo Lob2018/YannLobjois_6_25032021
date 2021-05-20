@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controller/main.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controller/main.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Import SASS for WebPack
+import "../../scss/style.scss";
+import Message from '../utils/Message.js';
+import LoadData from '../entity/LoadData.js';
+import FishEyeFactory from '../entity/FishEyeFactory.js';
+import HomePage from "../view/HomePage";
+
+// Instantiate communication with the user
+const message = new Message();
+// Instantiate the data loader 
+const loadData = new LoadData();
+// Instantiate the factory 
+const factory = new FishEyeFactory();
+// Instantiate the photographs list
+const photographers = [];
+// Instantiate the media list
+const medias = [];
+// Create the lowest price
+let lowPrice;
+// Create the highest price
+let highPrice;
+// Instantiate the Set for tags
+const theTags = new Set();
+
+// Initialize to load the data, then factory it 
+loadData.loading('./data/FishEyeDataFR.json').then(data => {
+    return factoring(data);
+}).then(code => {
+    if (code == 0) {
+        main();
+    }
+}).catch(() => {
+    // If we have an error, explain it and propose a solution
+    message.queue(-1, 12000, "Les données chargées sont corrompues.",
+        "Vérifier la cohérence, et le format des données stockées.");
+    return -1;
+})
+
+// Factoring data content for photographers and their medias
+function factoring(data) {
+    // If no data then return
+    if (data === -1) { return -1 }
+    // create and list the media objects
+    data.media.forEach(element => {
+        medias.push(factory.createPhotography("media", element));
+    });
+    // create and list the photographer objects
+    data.photographers.forEach(element => {
+        photographers.push(factory.createPhotography("photographer", element));
+    });
+    // Instanciate the highest and lowest price
+    lowPrice = highPrice = photographers[0].price;
+    // Set all the tags, and add the photographer's medias objects
+    for (let i = 0; i &lt; photographers.length; i++) {
+        if (photographers[i].price &lt; lowPrice) lowPrice = photographers[i].price;
+        if (photographers[i].price > highPrice) highPrice = photographers[i].price;
+        for (let j = 0; j &lt; medias.length; j++) {
+            if (photographers[i].id === medias[j].photographerId) {
+                photographers[i].addMedia(medias[j])
+            }
+        }
+        // Add all the tags to their Set
+        for (let k = 0; k &lt; photographers[i].tags.length; k++) {
+            theTags.add(photographers[i].tags[k])
+        }
+    }
+    return 0;
+}
+
+// The main program
+function main() {
+
+    // Listener for the navigation link to content
+    const mybutton = document.getElementsByClassName("btn-to-main")[0];
+    let lastScrollTop = 0;
+    document.addEventListener("scroll",
+        function() {
+            // pageYOffset for Apple/Safari and scrollTop for the others
+            var st = window.pageYOffset || document.documentElement.scrollTop;
+            if (document.body.scrollTop > 250 || document.documentElement.scrollTop > 250) {
+                if (st > lastScrollTop) {
+                    mybutton.style.display = "block";
+                } else if (st &lt; lastScrollTop) {
+                    mybutton.style.display = "none";
+                }
+                lastScrollTop = st;
+            } else mybutton.style.display = "none";
+        }, false);
+
+    // Get the current page type
+    window.location.pathname.split("/").pop() === "photographer.html" ? photographersPage() : homePage();
+}
+
+
+
+
+
+/**
+ * THE HOME PAGE
+ */
+function homePage() {
+    // Instanciate the pages renderer with the values
+    const homePage = new HomePage(theTags, photographers, highPrice, lowPrice);
+
+    // RAZ of the tag's filters on logo's click
+    const logo = document.getElementsByClassName("logo")[0];
+    logo.addEventListener("click", function() {
+        homePage.renderPhotographersCards("*");
+    }, true);
+    // Render the header JSON-LD web semantic
+    homePage.renderSchemaJSONLD();
+    // Render the clickable tags list in the header
+    homePage.renderGlobalTags();
+    // Render the photographers's cards
+    homePage.renderPhotographersCards("");
+}
+
+
+/**
+ * The photographers's page
+ */
+function photographersPage() {}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.html#.exports">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMedia">addMedia</a></li><li><a href="global.html#checked">checked</a></li><li><a href="global.html#closeMessage">closeMessage</a></li><li><a href="global.html#createPhotography">createPhotography</a></li><li><a href="global.html#createTheHtmlElement">createTheHtmlElement</a></li><li><a href="global.html#getMedias">getMedias</a></li><li><a href="global.html#getMediasAmount">getMediasAmount</a></li><li><a href="global.html#getStorage">getStorage</a></li><li><a href="global.html#homePage">homePage</a></li><li><a href="global.html#isTaggedBy">isTaggedBy</a></li><li><a href="global.html#loading">loading</a></li><li><a href="global.html#photographersPage">photographersPage</a></li><li><a href="global.html#photographersSchemaJSON">photographersSchemaJSON</a></li><li><a href="global.html#queue">queue</a></li><li><a href="global.html#rendered">rendered</a></li><li><a href="global.html#renderGlobalTags">renderGlobalTags</a></li><li><a href="global.html#renderPhotographersCards">renderPhotographersCards</a></li><li><a href="global.html#renderSchemaJSONLD">renderSchemaJSONLD</a></li><li><a href="global.html#setStorage">setStorage</a></li><li><a href="global.html#stopRenderer">stopRenderer</a></li><li><a href="global.html#tagLoopFactorization">tagLoopFactorization</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu May 20 2021 16:22:39 GMT+0200 (GMT+02:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

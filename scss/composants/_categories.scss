@@ -17,10 +17,12 @@ nav[aria-label="photographers categories"] {
     @include mobile {
         margin-top: 18px;
         justify-content: center;
+        margin-bottom: 2em;
     }
     @include laptop {
         margin-top: 18px;
         justify-content: center;
+        margin-bottom: 2em;
     }
     & li {
         padding: 0 0.15em;

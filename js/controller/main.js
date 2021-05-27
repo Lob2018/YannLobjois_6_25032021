@@ -3,7 +3,10 @@ import "../../scss/style.scss";
 import Message from '../utils/Message.js';
 import LoadData from '../entity/LoadData.js';
 import FishEyeFactory from '../entity/FishEyeFactory.js';
-import HomePage from "../view/HomePage";
+import HomePage from "../view/HomePage.js";
+import PhotographersPage from "../view/PhotographersPage.js";
+import LocalStorage from "../utils/LocalStorage.js";
+import getArraysJsonElement from "../utils/getArraysJsonElement";
 
 // Instantiate communication with the user
 const message = new Message();
@@ -21,6 +24,9 @@ let lowPrice;
 let highPrice;
 // Instantiate the Set for tags
 const theTags = new Set();
+// Instanciate the local storage
+const localStorage = new LocalStorage();
+
 
 // Initialize to load the data, then factory it 
 loadData.loading('./data/FishEyeDataFR.json').then(data => {
@@ -69,7 +75,18 @@ function factoring(data) {
 
 // The main program
 function main() {
+    // Get the current page type
+    window.location.pathname.split("/").pop() === "photographer.html" ? photographersPage() : homePage();
+}
 
+
+
+
+
+/**
+ * THE HOME PAGE
+ */
+function homePage() {
     // Listener for the navigation link to content
     const mybutton = document.getElementsByClassName("btn-to-main")[0];
     let lastScrollTop = 0;
@@ -86,37 +103,55 @@ function main() {
                 lastScrollTop = st;
             } else mybutton.style.display = "none";
         }, false);
-
-    // Get the current page type
-    window.location.pathname.split("/").pop() === "photographer.html" ? photographersPage() : homePage();
-}
-
-
-
-
-
-/**
- * THE HOME PAGE
- */
-function homePage() {
     // Instanciate the pages renderer with the values
     const homePage = new HomePage(theTags, photographers, highPrice, lowPrice);
-
     // RAZ of the tag's filters on logo's click
-    const logo = document.getElementsByClassName("logo")[0];
+    const logo = document.getElementsByClassName("logo--home")[0];
     logo.addEventListener("click", function() {
         homePage.renderPhotographersCards("*");
+        localStorage.clear();
     }, true);
     // Render the header JSON-LD web semantic
     homePage.renderSchemaJSONLD();
     // Render the clickable tags list in the header
     homePage.renderGlobalTags();
-    // Render the photographers's cards
-    homePage.renderPhotographersCards("");
+    // Is there a local storage tag selected
+    const tag = localStorage.getStorage("tag");
+    if (tag === null) {
+        // Render all the photographers's cards
+        homePage.renderPhotographersCards("");
+    } else {
+        // Load and render the photographer's card with this tag
+        homePage.renderPhotographersCards("");
+        homePage.renderPhotographersCards(tag);
+    }
 }
 
 
 /**
  * The photographers's page
  */
-function photographersPage() {}
+function photographersPage() {
+    // RAZ of the tag's filters on logo's click
+    const logo = document.getElementsByClassName("logo--photographer")[0];
+    logo.addEventListener("click", function() {
+        localStorage.clear();
+    }, true);
+    // Redirect to home page, if there is no photographer's id in the local storage
+    const id = localStorage.getStorage("id");
+    if (id === null) window.location.href = "./index.html";
+    // Instanciate the pages renderer with the values
+    const photographerPage = new PhotographersPage(getArraysJsonElement(photographers, "id", id)[0]);
+    // Render the header JSON-LD web semantic
+    photographerPage.renderSchemaJSONLD();
+    // Render the clickable tags list in the header
+    photographerPage.renderPhotographerTags();
+    // Show the modal on the contact button's click
+    const btnContact = document.getElementsByClassName("btn__contact")[0];
+    btnContact.addEventListener("click", function() {
+        alert('oo')
+    }, true);
+    // Render the header information
+    photographerPage.renderHeaderInformation();
+
+}

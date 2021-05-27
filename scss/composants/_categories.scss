@@ -1,4 +1,4 @@
-nav[aria-label="photographers categories"] {
+nav[aria-label="All photographers categories"] {
     @include mobile {
         order: 2;
         flex: 1 0 100%;
@@ -54,6 +54,44 @@ nav[aria-label="photographers categories"] {
             color: map-get($couleurs, coulPrimaire);
             background-color: map-get($couleurs, coulBgHover);
             border-radius: 11px;
+        }
+    }
+}
+
+.photographer-categories {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 1.2rem;
+    & li {
+        padding: 0 0.15em;
+        & a {
+            position: relative;
+            z-index: 1;
+            vertical-align: top;
+            font-weight: 500;
+            font-size: map-get($size, pageTxtTag);
+            border: 0.7px solid map-get($couleurs, coulTagBorder);
+            color: map-get($couleurs, coulPrimaire);
+            padding: 0.05em 0.35em;
+            border-radius: 12px;
+            cursor: pointer;
+        }
+        & a:hover::after {
+            opacity: 1;
+        }
+        & a::after {
+            z-index: -1;
+            content: "";
+            position: absolute;
+            top: 0px;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 250ms;
+            color: map-get($couleurs, coulPrimaire);
+            background-color: map-get($couleurs, coulBgHover);
+            border-radius: 12px;
         }
     }
 }

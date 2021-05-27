@@ -10,10 +10,10 @@ export default class Media {
         this.photographerId = objectContent.photographerId;
         if (objectContent.image === undefined) {
             this.mediaType = "video";
-            this.path = "./videos/" + objectContent.video;
+            this.path = "./public/videos/" + objectContent.video;
         } else {
             this.mediaType = "image";
-            this.path = "./img/" + objectContent.image;
+            this.path = "./public/img/" + objectContent.image;
         }
         this.tags = objectContent.tags;
         this.likes = objectContent.likes;

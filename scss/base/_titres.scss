@@ -35,3 +35,11 @@ h6 {
         margin-right: 1.2rem;
     }
 }
+
+.photographer__h1 {
+    padding: 0.2rem 3rem 0.2rem 0;
+    font-size: map-get($size, pageTxtNom);
+    color: map-get($couleurs, coulSecondaire);
+    line-height: 1;
+    max-width: 100%;
+}

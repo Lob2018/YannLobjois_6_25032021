@@ -1,4 +1,4 @@
-header {
+.header--home {
     display: flex;
     justify-content: space-between;
     width: 100%;
@@ -9,5 +9,58 @@ header {
     @include laptop {
         width: initial;
         flex-wrap: wrap;
+    }
+}
+
+.header__info--photographer {
+    background-color: map-get($couleurs, coulTxtSecondaireGris);
+    margin: 30px 5rem 0 5rem;
+    padding: 56px 3rem;
+    display: flex;
+    & .contact-information {
+        flex: 1 0 33%;
+        max-width: 33%;
+        & .photographer__town {
+            margin-top: 0.45rem;
+            font-size: map-get($size, pageTxtDesc);
+            color: map-get($couleurs, coulPrimaire);
+        }
+        & .photographer__tagline {
+            margin-top: 1.1rem;
+            font-size: map-get($size, pageTxtTag);
+            color: map-get($couleurs, coulTxtTagline);
+        }
+    }
+    & .btn-container {
+        flex: 1 0 33%;
+        max-width: 33%;
+    }
+    & .photo-container {
+        flex: 1 0 33%;
+        max-width: 33%;
+        & picture {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            height: 12em;
+            width: 12em;
+            border-radius: 50%;
+            filter: none;
+            margin-left: auto;
+            & img {
+                filter: blur(3px);
+                border-radius: 50%;
+                height: 12.5em;
+                width: 12.5em;
+                object-fit: cover;
+                box-shadow: 0 0 20px 14px #fff;
+                opacity: 0.22;
+                mix-blend-mode: multiply;
+                margin-left: auto;
+            }
+        }
     }
 }

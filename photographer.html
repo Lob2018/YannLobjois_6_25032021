@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <!-- IE highest mode available -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>FishEye</title>
-    <meta name="description" content="Freelance photographer website">
+    <title>FishEye photographer page</title>
+    <meta name="description" content="Freelance photographer page">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script id="dynamicJSONLD" type="application/ld+json"></script>
-    <link rel="icon" href="./img/logo/FishEye-browser-icon.svg">
+    <link rel="icon" href="./public/img/logo/FishEye-browser-icon.svg">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 
@@ -17,20 +17,29 @@
 
 <body>
     <!-- HEADER -->
-    <header>
-        <a class="logo" href="./index.html">
-            <img src="./img/logo/FishEye.svg" alt="FishEye Home page">
+    <header class="header--photographer">
+        <a class="logo--photographer" href="./index.html">
+            <img src="./public/img/logo/FishEye.svg" alt="FishEye Home page">
         </a>
-        <nav aria-label="photographers categories">
-            <ul class="index-categories" role="menubar" aria-label="photographer categories">
-            </ul>
-        </nav>
-        <h1 class="index__h1">Nos photographes</h1>
+        <div role="none" class="header__info--photographer">
+            <div role="none" class="contact-information">
+                <h1 class="photographer__h1"></h1>
+                <p class="photographer__town"></p>
+                <p class="photographer__tagline"></p>
+                <nav aria-label="Photographers tags">
+                    <ul class="photographer-categories" role="menubar" aria-label="Photographers tags">
+                    </ul>
+                </nav>
+            </div>
+            <div role="none" class="btn-container">
+                <button class="btn__contact">Contactez-moi</button>
+            </div>
+        </div>
+
     </header>
     <!-- MAIN -->
     <main id="main">
-        <button class="btn-to-main" aria-label="Passer au contenu" onclick="document.location='#main'">Passer au contenu</button>
-        <section class="cards-photographs">
+        <section class="cards-contents">
         </section>
     </main>
     <footer></footer>

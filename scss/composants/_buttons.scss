@@ -15,3 +15,17 @@
     cursor: pointer;
     z-index: 999;
 }
+
+.btn__contact {
+    max-height: 69px;
+    font-size: map-get($size, pageTxtBtn);
+    background-color: map-get($couleurs, coulPrimaire);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    line-height: 23px;
+    padding: 1.1em 0.55em;
+    cursor: pointer;
+    z-index: 999;
+}

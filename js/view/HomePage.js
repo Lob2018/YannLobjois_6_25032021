@@ -1,5 +1,4 @@
 import LocalStorage from '../utils/LocalStorage';
-import getArraysExtremes from "../utils/getArraysExtremes";
 
 /**
  * The home page
@@ -45,6 +44,7 @@ export default class HomePage {
         const preservedThis = this;
         tagLink.addEventListener("click", function() {
             preservedThis.renderPhotographersCards(tag);
+            preservedThis.localStorage.setStorage("tag", tag);
         }, true);
         const tagList = document.createElement("LI");
         tagList.setAttribute("role", "none");
@@ -57,32 +57,33 @@ export default class HomePage {
      * Home page : Add web semantics in the head of HTML in JSON-LD format
      */
     renderSchemaJSONLD() {
-            const schemaElement = document.getElementById("dynamicJSONLD");
-            schemaElement.text = JSON.stringify({
-                "@context": "https://schema.org",
-                "@type": "Service",
-                "serviceType": "Freelance photographers website",
-                "provider": {
-                    "@type": "Organization",
-                    "legalName": "FishEye",
-                    "logo": "./img/logo/FishEye.png"
+        const schemaElement = document.getElementById("dynamicJSONLD");
+        schemaElement.text = JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "serviceType": "Freelance photographers website",
+            "provider": {
+                "@type": "Organization",
+                "legalName": "FishEye",
+                "logo": "./public/img/logo/FishEye.png"
+            },
+            "offers": {
+                "@type": "Offer",
+                "description": "Photographers rates in Euros",
+                "itemOffered": {
+                    "@type": "AggregateOffer",
+                    "highPrice": this.photographsHighPrice + "EUR",
+                    "lowPrice": this.photographsLowPrice + "EUR",
+                    "offerCount": this.photographers.length
                 },
-                "offers": {
-                    "@type": "Offer",
-                    "description": "Photographers rates in Euros",
-                    "itemOffered": {
-                        "@type": "AggregateOffer",
-                        "highPrice": this.photographsHighPrice + "EUR",
-                        "lowPrice": this.photographsLowPrice + "EUR",
-                        "offerCount": this.photographers.length
-                    },
-                }
-            });
-        }
-        /**
-         * Render the photographers cards
-         * @param {string} tag - The tag to render
-         */
+            }
+        });
+    }
+
+    /**
+     * Render the photographers cards
+     * @param {string} tag - The tag to render
+     */
     renderPhotographersCards(tag) {
         if (tag === "") {
             this.photographers.forEach(photographer => {
@@ -97,7 +98,7 @@ export default class HomePage {
                 cardLink.addEventListener("click", function() {
                     preservedThis.localStorage.setStorage("id", photographer.id);
                 }, true);
-                const photoJGP = "./img/photographers/" + photographer.id + ".jpg";
+                const photoJGP = "./public/img/photographers/" + photographer.id + ".jpg";
                 const photoContainer = document.createElement("picture");
                 photoContainer.style.backgroundImage = "url('" + photoJGP + "')";
                 const photo = document.createElement("img");
@@ -144,6 +145,7 @@ export default class HomePage {
                 htmlElementArticle.style.display = "block";
             });
         } else {
+            console.log('dedans')
             let preservedThis = this;
             // Filter the photographers with one tag
             Array.prototype.forEach.call(this.indexCardsElementContainer.getElementsByTagName("article"), function(htmlElementArticle) {

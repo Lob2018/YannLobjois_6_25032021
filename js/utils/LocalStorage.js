@@ -31,4 +31,19 @@ export default class LocalStorage {
     setStorage(item, value) {
         localStorage.setItem(item, value);
     }
+
+    /**
+     * Remove an item from the local storage
+     * @param {string} item - The item to remove
+     */
+    removeItem(item) {
+        localStorage.removeItem(item);
+    }
+
+    /**
+     * Remove all items in the local storage
+     */
+    clear() {
+        localStorage.clear();
+    }
 }

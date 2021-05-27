@@ -1,4 +1,4 @@
-.logo {
+.logo--home {
     @include mobile {
         flex: 1 0 30%;
         order: 0;
@@ -11,6 +11,21 @@
         margin-left: 1.2rem;
         margin-top: 40px;
     }
+    margin-left: 5rem;
+    margin-top: 42px;
+    & img {
+        height: map-get($size, logoHeight);
+        @include mobile {
+            height: map-get($size, logoMobHeight);
+        }
+        @include laptop {
+            height: map-get($size, logoMobHeight);
+        }
+    }
+}
+
+.logo--photographer {
+    display: inline-block;
     margin-left: 5rem;
     margin-top: 42px;
     & img {

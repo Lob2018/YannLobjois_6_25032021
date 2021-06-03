@@ -1,10 +1,9 @@
 import LocalStorage from '../utils/LocalStorage';
 
-/**
- * The home page
- */
 export default class HomePage {
     /**
+     * Classe HomePage - The home page
+     * @class HomePage
      * @param {array} theTags - The tags array
      * @param {array} photographers - The photographers array
      * @param {string} photographsHighPrice - The most expensive photographer
@@ -23,6 +22,8 @@ export default class HomePage {
 
     /**
      * Home page : Create the clickable tags list in the header
+     * @function
+     * @memberof HomePage  
      */
     renderGlobalTags() {
         this.theTags.forEach(tag => {
@@ -36,6 +37,8 @@ export default class HomePage {
 
     /**
      * Tag loop factorization (listener, add li, return list)
+     * @function
+     * @memberof HomePage  
      * @param {string} tag - The tag
      * @param {object} tagLink - The HTML tag link
      * @returns {object} - The HTML tags list
@@ -55,6 +58,8 @@ export default class HomePage {
 
     /**
      * Home page : Add web semantics in the head of HTML in JSON-LD format
+     * @function
+     * @memberof HomePage  
      */
     renderSchemaJSONLD() {
         const schemaElement = document.getElementById("dynamicJSONLD");
@@ -82,6 +87,8 @@ export default class HomePage {
 
     /**
      * Render the photographers cards
+     * @function
+     * @memberof HomePage  
      * @param {string} tag - The tag to render
      */
     renderPhotographersCards(tag) {
@@ -145,7 +152,6 @@ export default class HomePage {
                 htmlElementArticle.style.display = "block";
             });
         } else {
-            console.log('dedans')
             let preservedThis = this;
             // Filter the photographers with one tag
             Array.prototype.forEach.call(this.indexCardsElementContainer.getElementsByTagName("article"), function(htmlElementArticle) {

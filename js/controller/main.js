@@ -10,8 +10,6 @@ import getArraysJsonElement from "../utils/getArraysJsonElement";
 
 // Instantiate communication with the user
 const message = new Message();
-// Instantiate the data loader 
-const loadData = new LoadData();
 // Instantiate the factory 
 const factory = new FishEyeFactory();
 // Instantiate the photographs list
@@ -28,12 +26,15 @@ const theTags = new Set();
 const localStorage = new LocalStorage();
 
 
-// Initialize to load the data, then factory it 
-loadData.loading('./data/FishEyeDataFR.json').then(data => {
+/**
+ * Initialize to load the data, factory and store it in loadData, then redirect to the corresponding page
+ */
+const loadData = new LoadData('./data/FishEyeDataFR.json').then(data => {
     return factoring(data);
 }).then(code => {
     if (code == 0) {
-        main();
+        // Redirect to the the corresponding page
+        window.location.pathname.split("/").pop() === "photographer.html" ? photographersPage() : homePage();
     }
 }).catch(() => {
     // If we have an error, explain it and propose a solution
@@ -42,7 +43,11 @@ loadData.loading('./data/FishEyeDataFR.json').then(data => {
     return -1;
 })
 
-// Factoring data content for photographers and their medias
+/**
+ * Factoring data content for photographers and their medias
+ * @param {object} data - The data to factor
+ * @returns {number} - The result number (0 if it's ok)
+ */
 function factoring(data) {
     // If no data then return
     if (data === -1) { return -1 }
@@ -73,18 +78,9 @@ function factoring(data) {
     return 0;
 }
 
-// The main program
-function main() {
-    // Get the current page type
-    window.location.pathname.split("/").pop() === "photographer.html" ? photographersPage() : homePage();
-}
-
-
-
-
 
 /**
- * THE HOME PAGE
+ * Manage the home page
  */
 function homePage() {
     // Listener for the navigation link to content
@@ -129,7 +125,7 @@ function homePage() {
 
 
 /**
- * The photographers's page
+ * Manage the photographers's page
  */
 function photographersPage() {
     // RAZ of the tag's filters on logo's click
@@ -153,5 +149,4 @@ function photographersPage() {
     }, true);
     // Render the header information
     photographerPage.renderHeaderInformation();
-
 }

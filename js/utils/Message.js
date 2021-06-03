@@ -1,11 +1,8 @@
-/**
- * Give a message to the user
- * type 0 for normal message and -1 for error
- * Singleton design pattern
- */
 export default class Message {
     static instance;
     /**
+     * Classe Message - Give a message to the user type 0 for normal message and -1 for error - Singleton design pattern
+     * @class Message
      * @returns {object} - The current Message instance
      */
     constructor() {
@@ -16,9 +13,10 @@ export default class Message {
         this.messagesArray = [];
     }
 
-    // Add the message to the waiting list
     /**
-     * Queue to render the message
+     * Add the message to the waiting list - Queue to render the message
+     * @function
+     * @memberof Message     
      * @param {number} type - The message type (-1=error 0=info)
      * @param {number} duration - The duration in milliseconds
      * @param {string} message - The message to show
@@ -34,6 +32,8 @@ export default class Message {
 
     /**
      * Check arguments values
+     * @function
+     * @memberof Message  
      * @param {number} type - The message type (-1=error 0=info)
      * @param {number} duration - The duration in milliseconds
      * @returns {boolean} - Is correct
@@ -44,6 +44,8 @@ export default class Message {
 
     /**
      * Render the first message, then the others by recursion
+     * @function
+     * @memberof Message  
      */
     rendered() {
         const preservedThis = this;
@@ -68,6 +70,8 @@ export default class Message {
 
     /**
      * Stop rendering a message
+     * @function
+     * @memberof Message 
      * @param {object} preservedThis - The preserved object reference
      */
     stopRenderer(preservedThis) {
@@ -78,6 +82,8 @@ export default class Message {
 
     /**
      * Stop the render timer
+     * @function
+     * @memberof Message 
      * @param {object} preservedThis - The preserved object reference 
      */
     closeMessage(preservedThis) {
@@ -88,6 +94,8 @@ export default class Message {
 
     /**
      * Create the HTML message bloc
+     * @function
+     * @memberof Message 
      * @param {number} type - The message type (-1=error 0=info)
      * @param {string} message - The message to show
      * @param {string} resolution - The proposed solutions for errors

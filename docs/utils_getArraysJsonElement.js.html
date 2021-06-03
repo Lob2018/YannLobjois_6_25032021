@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: utils/LocalStorage.js</title>
+    <title>JSDoc: Source: utils/getArraysJsonElement.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: utils/LocalStorage.js</h1>
+    <h1 class="page-title">Source: utils/getArraysJsonElement.js</h1>
 
     
 
@@ -26,60 +26,18 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>export default class LocalStorage {
-    static instance;
-    /**
-     * Classe LocalStorage - Interact with the local storage - Singleton design pattern
-     * @class LocalStorage
-     * @returns {object} - The current LocalStorage instance
-     */
-    constructor() {
-        if (LocalStorage.instance) {
-            return LocalStorage.instance;
-        }
-        LocalStorage.instance = this;
-    }
-
-    /**
-     * Get the value of item from the local storage
-     * @function
-     * @memberof LocalStorage  
-     * @param {string} item - The item in the storage
-     * @returns - The value stored
-     */
-    getStorage(item) {
-        return localStorage.getItem(item);
-    }
-
-    /**
-     * Set an item value in the local storage
-     * @function
-     * @memberof LocalStorage  
-     * @param {string} item - The item to store
-     * @param {string} value - The item value to store
-     */
-    setStorage(item, value) {
-        localStorage.setItem(item, value);
-    }
-
-    /**
-     * Remove an item from the local storage
-     * @function
-     * @memberof LocalStorage  
-     * @param {string} item - The item to remove
-     */
-    removeItem(item) {
-        localStorage.removeItem(item);
-    }
-
-    /**
-     * Remove all items in the local storage
-     * @function
-     * @memberof LocalStorage  
-     */
-    clear() {
-        localStorage.clear();
-    }
+            <pre class="prettyprint source linenums"><code>/**
+ * Get the filtered object with his value, from an array of objects
+ * @module
+ * @param {array} array 
+ * @param {string} key 
+ * @param {string} value 
+ * @returns {object} - The corresponding object
+ */
+export default function(array, key, value) {
+    return array.filter(function(obj) {
+        if (obj[key] == value) return obj;
+    })
 }</code></pre>
         </article>
     </section>

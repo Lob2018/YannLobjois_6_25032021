@@ -26,50 +26,61 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>/**
- * The photographer object
- */
-export default class Photographer {
+            <pre class="prettyprint source linenums"><code>export default class Photographer {
     /**
+     * Classe Photographer - The photographer object
+     * @class Photographer
      * @param {object} objectContent - The JSON photographer data
      */
     constructor(objectContent) {
-            this.name = objectContent.name;
-            this.id = objectContent.id;
-            this.city = objectContent.city;
-            this.country = objectContent.country;
-            this.tags = objectContent.tags;
-            this.tagline = objectContent.tagline
-            this.price = objectContent.price
-            this.portrait = objectContent.portrait
-            this.medias = [];
-        }
-        /**
-         * Add the photographer's media
-         * @param {Object} media - The JSON media data
-         */
+        this.name = objectContent.name;
+        this.id = objectContent.id;
+        this.city = objectContent.city;
+        this.country = objectContent.country;
+        this.tags = objectContent.tags;
+        this.tagline = objectContent.tagline
+        this.price = objectContent.price
+        this.portrait = objectContent.portrait
+        this.medias = [];
+    }
+
+    /**
+     * Add the photographer's media
+     * @function
+     * @memberof Photographer  
+     * @param {Object} media - The JSON media data
+     */
     addMedia(media) {
-            this.medias.push(media);
-        }
-        /**
-         * Get all the photographer media
-         * @returns {array} - The media array
-         */
+        this.medias.push(media);
+    }
+
+    /**
+     * Get all the photographer media
+     * @function
+     * @memberof Photographer  
+     * @returns {array} - The media array
+     */
     getMedias() {
-            return this.medias;
-        }
-        /**
-         * Get the number of media
-         * @returns {number} - The number of media
-         */
+        return this.medias;
+    }
+
+    /**
+     * Get the number of media
+     * @function
+     * @memberof Photographer  
+     * @returns {number} - The number of media
+     */
     getMediasAmount() {
-            return this.medias.length;
-        }
-        /**
-         * Is it a photograph tag
-         * @param {string} tag - A tag
-         * @returns {boolean} - Is photographer tag
-         */
+        return this.medias.length;
+    }
+
+    /**
+     * Is it a photograph tag
+     * @function
+     * @memberof Photographer  
+     * @param {string} tag - A tag
+     * @returns {boolean} - Is photographer tag
+     */
     isTaggedBy(tag) {
         return this.tags.includes(tag)
     }
@@ -83,13 +94,13 @@ export default class Photographer {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="module.html#.exports">exports</a></li></ul><h3>Global</h3><ul><li><a href="global.html#addMedia">addMedia</a></li><li><a href="global.html#checked">checked</a></li><li><a href="global.html#closeMessage">closeMessage</a></li><li><a href="global.html#createPhotography">createPhotography</a></li><li><a href="global.html#createTheHtmlElement">createTheHtmlElement</a></li><li><a href="global.html#getMedias">getMedias</a></li><li><a href="global.html#getMediasAmount">getMediasAmount</a></li><li><a href="global.html#getStorage">getStorage</a></li><li><a href="global.html#homePage">homePage</a></li><li><a href="global.html#isTaggedBy">isTaggedBy</a></li><li><a href="global.html#loading">loading</a></li><li><a href="global.html#photographersPage">photographersPage</a></li><li><a href="global.html#photographersSchemaJSON">photographersSchemaJSON</a></li><li><a href="global.html#queue">queue</a></li><li><a href="global.html#rendered">rendered</a></li><li><a href="global.html#renderGlobalTags">renderGlobalTags</a></li><li><a href="global.html#renderPhotographersCards">renderPhotographersCards</a></li><li><a href="global.html#renderSchemaJSONLD">renderSchemaJSONLD</a></li><li><a href="global.html#setStorage">setStorage</a></li><li><a href="global.html#stopRenderer">stopRenderer</a></li><li><a href="global.html#tagLoopFactorization">tagLoopFactorization</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils_getArraysExtremes.html">utils/getArraysExtremes</a></li><li><a href="module-utils_getArraysJsonElement.html">utils/getArraysJsonElement</a></li></ul><h3>Classes</h3><ul><li><a href="FishEyeFactory.html">FishEyeFactory</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="LoadData.html">LoadData</a></li><li><a href="LocalStorage.html">LocalStorage</a></li><li><a href="Media.html">Media</a></li><li><a href="Message.html">Message</a></li><li><a href="Photographer.html">Photographer</a></li><li><a href="PhotographerPage.html">PhotographerPage</a></li></ul><h3>Global</h3><ul><li><a href="global.html#factoring">factoring</a></li><li><a href="global.html#homePage">homePage</a></li><li><a href="global.html#loadData">loadData</a></li><li><a href="global.html#photographersPage">photographersPage</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu May 20 2021 16:22:39 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Jun 03 2021 12:31:33 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>

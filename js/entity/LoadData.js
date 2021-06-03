@@ -1,12 +1,11 @@
-/**
- * Load all the data from the JSON file
- */
 export default class LoadData {
     /**
+     * Classe LoadData - Load all the data from the JSON file
+     * @class LoadData
      * @param {string} path - The data file path
      * @returns - The data object
      */
-    loading(path) {
+    constructor(path) {
         // JSON photographers feed
         return fetch(path)
             .then(response => {

@@ -14,6 +14,7 @@
 
 .header__info--photographer {
     background-color: map-get($couleurs, coulTxtSecondaireGris);
+    border-radius: 5px;
     margin: 30px 5rem 0 5rem;
     padding: 56px 3rem;
     display: flex;

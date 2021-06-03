@@ -1,9 +1,10 @@
 /**
  * Get the max or min from an array with an accumulator of callback's return value
+ * @module
  * @param {array} array - The array 
  * @param {string} value - The property to sort 
  * @param {string} type - The type of filter (max or min)
- * @returns - The maximum or minimum value
+ * @returns {number} - The maximum or minimum corresponding value
  */
 export default function(array, value, type) {
     if (type === "min") {

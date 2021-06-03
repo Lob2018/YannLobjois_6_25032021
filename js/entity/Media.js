@@ -1,8 +1,7 @@
-/**
- * The media object
- */
 export default class Media {
     /**
+     * Classe Media - The media object
+     * @class Media
      * @param {object} objectContent - The JSON media data
      */
     constructor(objectContent) {

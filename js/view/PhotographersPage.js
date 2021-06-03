@@ -91,18 +91,22 @@ export default class PhotographerPage {
         titleH1.textContent = this.photographer.name;
 
         const headerInformation = document.getElementsByClassName("header__info--photographer")[0];
-        const photoContainer = document.createElement("div");
-        photoContainer.setAttribute("role", "none");
+
+        const blocPhotoContainer = document.createElement("div");
+        blocPhotoContainer.classList.add("bloc-photo-container");
+        const photoContainer = document.createElement("span");
         photoContainer.classList.add("photo-container");
+
         const photoJGP = "./public/img/photographers/" + this.photographer.id + ".jpg";
-        const photoPicture = document.createElement("picture");
-        photoPicture.style.backgroundImage = "url('" + photoJGP + "')";
         const photo = document.createElement("img");
         photo.src = photoJGP;
         photo.setAttribute("alt", "Photo de " + this.photographer.name);
-        photoPicture.appendChild(photo);
-        photoContainer.appendChild(photoPicture);
-        headerInformation.appendChild(photoContainer);
+
+        photoContainer.appendChild(photo);
+        blocPhotoContainer.appendChild(photoContainer);
+
+
+        headerInformation.appendChild(blocPhotoContainer);
 
         const headerInformationTown = document.getElementsByClassName("photographer__town")[0];
         headerInformationTown.textContent = this.photographer.city;

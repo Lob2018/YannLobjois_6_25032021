@@ -40,28 +40,35 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            & picture {
+            & .photo-container {
+                box-shadow: inset 0px 0px 4px 6px rgba(255, 255, 255, 0.9);
+                border-radius: 50%;
+                height: 10.8em;
+                width: 10.8em;
+                position: relative;
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                background-size: cover;
-                background-repeat: no-repeat;
-                background-position: center;
-                height: 10em;
-                width: 10em;
-                border-radius: 50%;
-                filter: none;
                 & img {
-                    filter: blur(3px);
+                    z-index: -1;
+                    position: relative;
                     border-radius: 50%;
                     height: 10.5em;
                     width: 10.5em;
                     object-fit: cover;
-                    box-shadow: 0 0 20px 14px #fff;
-                    z-index: -1;
-                    opacity: 0.22;
-                    mix-blend-mode: multiply;
                 }
+            }
+            & .photo-container::after {
+                content: "";
+                position: absolute;
+                border-radius: 50%;
+                height: 10.8em;
+                width: 10.8em;
+                box-sizing: border-box;
+                padding: 10px;
+                background: linear-gradient(180deg, #FFF, rgba(255, 255, 255, 0.8));
+                mask: linear-gradient(#FFF 0 0) content-box, linear-gradient(#FFF 0 0);
+                mask-composite: destination-out;
             }
             & h2 {
                 margin-top: 0.5em;

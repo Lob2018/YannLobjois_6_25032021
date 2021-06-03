@@ -18,6 +18,8 @@
     margin: 30px 5rem 0 5rem;
     padding: 56px 3rem;
     display: flex;
+    position: relative;
+    z-index: 0;
     & .contact-information {
         flex: 1 0 33%;
         max-width: 33%;
@@ -36,32 +38,43 @@
         flex: 1 0 33%;
         max-width: 33%;
     }
-    & .photo-container {
+    & .bloc-photo-container {
         flex: 1 0 33%;
-        max-width: 33%;
-        & picture {
+        position: relative;
+        display: flex;
+        justify-content: flex-end;
+        & .photo-container {
+            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            height: 12em;
-            width: 12em;
+            box-shadow: inset 0px 0px 4px 6px rgba(250, 250, 250, 0.9);
             border-radius: 50%;
-            filter: none;
-            margin-left: auto;
+            height: 12.8em;
+            width: 12.8em;
             & img {
-                filter: blur(3px);
+                z-index: -1;
+                position: relative;
                 border-radius: 50%;
                 height: 12.5em;
                 width: 12.5em;
                 object-fit: cover;
-                box-shadow: 0 0 20px 14px #fff;
-                opacity: 0.22;
-                mix-blend-mode: multiply;
-                margin-left: auto;
             }
+        }
+        & .photo-container::after {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            height: 12.8em;
+            width: 12.8em;
+            box-sizing: border-box;
+            padding: 10px;
+            background: linear-gradient(180deg, #FAFAFA, rgba(250, 250, 250, 0.8));
+            mask: linear-gradient(#FAFAFA 0 0) content-box, linear-gradient(#FAFAFA 0 0);
+            mask-composite: destination-out;
         }
     }
 }

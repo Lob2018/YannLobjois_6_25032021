@@ -106,8 +106,8 @@ export default class HomePage {
                     preservedThis.localStorage.setStorage("id", photographer.id);
                 }, true);
                 const photoJGP = "./public/img/photographers/" + photographer.id + ".jpg";
-                const photoContainer = document.createElement("picture");
-                photoContainer.style.backgroundImage = "url('" + photoJGP + "')";
+                const photoContainer = document.createElement("span");
+                photoContainer.classList.add("photo-container");
                 const photo = document.createElement("img");
                 photo.src = photoJGP;
                 photo.setAttribute("alt", "Photo de " + photographer.name);

@@ -70,7 +70,6 @@ export default class HomePage {
             "provider": {
                 "@type": "Organization",
                 "legalName": "FishEye",
-                "logo": "./public/img/logo/FishEye.png"
             },
             "offers": {
                 "@type": "Offer",
@@ -95,9 +94,12 @@ export default class HomePage {
         if (tag === "") {
             this.photographers.forEach(photographer => {
                 const card = document.createElement("article");
-                card.setAttribute("aria-label", "Présentation de " + photographer.name);
+                card.setAttribute("aria-label", "Page de " + photographer.name);
+                card.setAttribute("vocab", "https://schema.org/");
+                card.setAttribute("typeof", "Service");
                 card.classList.add("photographer-card");
                 const cardLink = document.createElement("a");
+                cardLink.setAttribute("property", "url");
                 cardLink.setAttribute("aria-label", "Page de " + photographer.name);
                 cardLink.tabIndex = 0;
                 cardLink.href = "./photographer.html";
@@ -109,20 +111,25 @@ export default class HomePage {
                 const photoContainer = document.createElement("span");
                 photoContainer.classList.add("photo-container");
                 const photo = document.createElement("img");
+                photo.setAttribute("property", "image");
                 photo.src = photoJGP;
                 photo.setAttribute("alt", "Photo de " + photographer.name);
                 photoContainer.appendChild(photo);
                 cardLink.appendChild(photoContainer);
                 const titre = document.createElement("h2");
+                titre.setAttribute("property", "name");
                 titre.textContent = photographer.name;
                 cardLink.appendChild(titre);
                 card.appendChild(cardLink);
                 const texte = document.createElement("P");
                 const texte1 = document.createElement("span");
+                texte1.setAttribute("property", "availableAtOrFrom");
                 const texte1CR = document.createElement("br");
                 const texte2 = document.createElement("span");
+                texte2.setAttribute("property", "slogan");
                 const texte2CR = document.createElement("br");
                 const texte3 = document.createElement("span");
+                texte3.setAttribute("property", "price");
                 texte1.textContent = photographer.city + ", " + photographer.country;
                 texte2.textContent = photographer.tagline;
                 texte3.textContent = photographer.price + "€/jour";

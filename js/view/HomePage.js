@@ -96,7 +96,7 @@ export default class HomePage {
                 const card = document.createElement("article");
                 card.setAttribute("aria-label", "Page de " + photographer.name);
                 card.setAttribute("vocab", "https://schema.org/");
-                card.setAttribute("typeof", "Service");
+                card.setAttribute("typeof", "Offer");
                 card.classList.add("photographer-card");
                 const cardLink = document.createElement("a");
                 cardLink.setAttribute("property", "url");

@@ -1,17 +1,49 @@
 form[name="filtre"] {
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
     margin-top: 1rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
     & label {
         font-size: map-get($size, pageTxtTag);
         font-weight: 700;
-        margin-right: 1rem;
+        margin: 0.5rem 1rem 0 0;
     }
-    & select[name="orderBy"] {
+    & select {
+        // A reset of styles, including removing the default dropdown arrow
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+        // Additional resets for further consistency
+        border: none;
+        margin: 0;
+        position: relative;
+        width: 10rem;
+        cursor: pointer;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 17px;
+        box-sizing: border-box;
+        line-height: 1.5;
         font-size: map-get($size, pageTxtTag);
         font-weight: 700;
         color: map-get($couleurs, coulTxtBlanc);
         background-color: map-get($couleurs, coulPrimaire);
-        border-radius: 5px;
-        border: none;
         padding: 23px 1.18rem;
+        border-radius: 5px;
+    }
+    .custom-select::after {
+        position: absolute;
+        content: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8' standalone='no'%3F%3E%3Csvg width='16' height='11' viewBox='0 0 16 11' fill='none' version='1.1' id='svg4' sodipodi:docname='agrandir.svg' inkscape:version='1.1 (ce6663b3b7, 2021-05-25)' xmlns:inkscape='http://www.inkscape.org/namespaces/inkscape' xmlns:sodipodi='http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd' xmlns='http://www.w3.org/2000/svg' xmlns:svg='http://www.w3.org/2000/svg'%3E%3Cdefs id='defs8' /%3E%3Csodipodi:namedview id='namedview6' pagecolor='%23ffffff' bordercolor='%23666666' borderopacity='1.0' inkscape:pageshadow='2' inkscape:pageopacity='0.0' inkscape:pagecheckerboard='0' showgrid='false' inkscape:zoom='76.727273' inkscape:cx='7.9958531' inkscape:cy='5.5065166' inkscape:window-width='1880' inkscape:window-height='1016' inkscape:window-x='1120' inkscape:window-y='426' inkscape:window-maximized='1' inkscape:current-layer='svg4' /%3E%3Cpath d='M 14.12,0.6666301 8.0000002,6.7732701 1.8800001,0.6666301 1e-7,2.5466001 8.0000002,10.5466 16,2.5466001 Z' fill='%23ffffff' id='path2' /%3E%3C/svg%3E");
+        right: 1.18rem;
+        top: 1.5rem;
+        pointer-events: none;
+    }
+    .custom-select {
+        position: relative;
+        width: 10rem;
     }
 }

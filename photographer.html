@@ -41,11 +41,14 @@
     <main class="photographer--main">
         <form name="filtre">
             <label for="orderBy">Trier par</label>
-            <select name="orderBy" id="orderBy" onchange="this.form.submit()">
-              <option value="1" >Popularité</option>
-              <option value="2" >Date</option>
-              <option value="3" >Titre</option>
+            <div class="custom-select">
+                <select name="orderBy" id="orderBy">
+                     <!-- onchange="this.form.submit()" -->
+              <option class="option__padding" value="1" >Popularité</option>
+              <option class="option__padding" value="2" >Date</option>
+              <option class="option__padding" value="3" >Titre</option>
             </select>
+            </div>
         </form>
         <section class="cards-contents">
         </section>

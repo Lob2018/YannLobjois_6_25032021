@@ -13,7 +13,13 @@ form[name="filtre"] {
         font-weight: 700;
         margin: 0.5rem 1rem 0 0;
     }
+    .custom-select {
+        position: relative;
+        width: 10rem;
+    }
     & select {
+        position: relative;
+        width: 10rem;
         // A reset of styles, including removing the default dropdown arrow
         -webkit-appearance: none;
         -moz-appearance: none;
@@ -42,8 +48,10 @@ form[name="filtre"] {
         top: 1.5rem;
         pointer-events: none;
     }
-    .custom-select {
-        position: relative;
-        width: 10rem;
+    .option--filter {
+        font-size: map-get($size, pageTxtTag);
+        font-weight: 700;
+        color: map-get($couleurs, coulTxtBlanc);
+        background-color: map-get($couleurs, coulPrimaire);
     }
 }

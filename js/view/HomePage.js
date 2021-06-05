@@ -107,12 +107,12 @@ export default class HomePage {
                 cardLink.addEventListener("click", function() {
                     preservedThis.localStorage.setStorage("id", photographer.id);
                 }, true);
-                const photoJGP = "./public/img/photographers/" + photographer.id + ".jpg";
+                const mediaPath = "./public/img/photographers/" + photographer.id + ".jpg";
                 const photoContainer = document.createElement("span");
                 photoContainer.classList.add("photo-container");
                 const photo = document.createElement("img");
                 photo.setAttribute("property", "image");
-                photo.src = photoJGP;
+                photo.src = mediaPath;
                 photo.setAttribute("alt", "Photo de " + photographer.name);
                 photoContainer.appendChild(photo);
                 cardLink.appendChild(photoContainer);

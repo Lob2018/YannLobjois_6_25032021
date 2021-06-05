@@ -149,4 +149,12 @@ function photographersPage() {
     }, true);
     // Render the header information
     photographerPage.renderHeaderInformation();
+    // Render all the photographers's photos
+    try {
+        photographerPage.renderPhotographersCards();
+
+    } catch (error) {
+        console.log(error)
+    }
+
 }

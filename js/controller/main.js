@@ -107,8 +107,6 @@ function homePage() {
         homePage.renderPhotographersCards("*");
         localStorage.clear();
     }, true);
-    // Render the header JSON-LD web semantic
-    homePage.renderSchemaJSONLD();
     // Render the clickable tags list in the header
     homePage.renderGlobalTags();
     // Is there a local storage tag selected
@@ -138,8 +136,6 @@ function photographersPage() {
     if (id === null) window.location.href = "./index.html";
     // Instanciate the pages renderer with the values
     const photographerPage = new PhotographersPage(getArraysJsonElement(photographers, "id", id)[0]);
-    // Render the header JSON-LD web semantic
-    photographerPage.renderSchemaJSONLD();
     // Render the clickable tags list in the header
     photographerPage.renderPhotographerTags();
     // Show the modal on the contact button's click

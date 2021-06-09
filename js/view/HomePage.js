@@ -14,10 +14,32 @@ export default class HomePage {
         this.photographers = photographers;
         this.indexPhotographersTagLinks = document.getElementsByClassName("index-categories")[0];
         this.indexCardsElementContainer = document.getElementsByClassName("cards-photographs")[0];
-        this.photographsHighPrice = photographsHighPrice;
-        this.photographsLowPrice = photographsLowPrice;
         this.photographersTagsToFilter = [];
         this.localStorage = new LocalStorage();
+        // For the JSON-LD
+        this.data = {
+            "@context": "https://schema.org/",
+            "@type": "Offer",
+            "name": "FishEye",
+            "url": "",
+            "image": "",
+            "description": "Freelance photographers",
+            "price": "",
+            "priceCurrency": "EUR",
+            "seller": {
+                "@type": "Organization",
+                "name": "FishEye",
+                "logo": "https://lob2018.github.io/YannLobjois_6_25032021/public/img/logo/FishEye.svg",
+                "url": "https://lob2018.github.io/YannLobjois_6_25032021/index.html"
+            },
+            "offers": {
+                "@type": "AggregateOffer",
+                "highPrice": photographsHighPrice + "€",
+                "lowPrice": photographsLowPrice + "€",
+                "offerCount": this.photographers.length,
+                "offers": []
+            }
+        }
     }
 
     /**
@@ -62,26 +84,10 @@ export default class HomePage {
      * @memberof HomePage  
      */
     renderSchemaJSONLD() {
-        const schemaElement = document.getElementById("dynamicJSONLD");
-        schemaElement.text = JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "serviceType": "Freelance photographers website",
-            "provider": {
-                "@type": "Organization",
-                "legalName": "FishEye",
-            },
-            "offers": {
-                "@type": "Offer",
-                "description": "Photographers rates in Euros",
-                "itemOffered": {
-                    "@type": "AggregateOffer",
-                    "highPrice": this.photographsHighPrice + "EUR",
-                    "lowPrice": this.photographsLowPrice + "EUR",
-                    "offerCount": this.photographers.length
-                },
-            }
-        });
+        const schemaElement = document.createElement("script");
+        schemaElement.type = "application/ld+json";
+        schemaElement.innerHTML = JSON.stringify(this.data)
+        document.getElementsByTagName('head')[0].appendChild(schemaElement);
     }
 
     /**
@@ -91,15 +97,13 @@ export default class HomePage {
      * @param {string} tag - The tag to render
      */
     renderPhotographersCards(tag) {
+        const offerJsonArray = [];
         if (tag === "") {
             this.photographers.forEach(photographer => {
                 const card = document.createElement("article");
                 card.setAttribute("aria-label", "Page de " + photographer.name);
-                card.setAttribute("vocab", "https://schema.org/");
-                card.setAttribute("typeof", "Offer");
                 card.classList.add("photographer-card");
                 const cardLink = document.createElement("a");
-                cardLink.setAttribute("property", "url");
                 cardLink.setAttribute("aria-label", "Page de " + photographer.name);
                 cardLink.tabIndex = 0;
                 cardLink.href = "./photographer.html";
@@ -111,25 +115,20 @@ export default class HomePage {
                 const photoContainer = document.createElement("span");
                 photoContainer.classList.add("photo-container");
                 const photo = document.createElement("img");
-                photo.setAttribute("property", "image");
                 photo.src = mediaPath;
                 photo.setAttribute("alt", "Photo de " + photographer.name);
                 photoContainer.appendChild(photo);
                 cardLink.appendChild(photoContainer);
                 const titre = document.createElement("h2");
-                titre.setAttribute("property", "name");
                 titre.textContent = photographer.name;
                 cardLink.appendChild(titre);
                 card.appendChild(cardLink);
                 const texte = document.createElement("P");
                 const texte1 = document.createElement("span");
-                texte1.setAttribute("property", "availableAtOrFrom");
                 const texte1CR = document.createElement("br");
                 const texte2 = document.createElement("span");
-                texte2.setAttribute("property", "slogan");
                 const texte2CR = document.createElement("br");
                 const texte3 = document.createElement("span");
-                texte3.setAttribute("property", "price");
                 texte1.textContent = photographer.city + ", " + photographer.country;
                 texte2.textContent = photographer.tagline;
                 texte3.textContent = photographer.price + "€/jour";
@@ -153,6 +152,21 @@ export default class HomePage {
                 });
                 card.appendChild(tags);
                 this.indexCardsElementContainer.appendChild(card);
+                // For the JSONLD
+                offerJsonArray.push({
+                    "@type": "Offer",
+                    "name": photographer.name,
+                    "description": "Photographer's day service",
+                    "priceCurrency": "EUR",
+                    "price": photographer.price + "€",
+                    "url": cardLink.href,
+                    "image": mediaPath,
+                    "slogan": photographer.tagline,
+                    "availableAtOrFrom": {
+                        "@type": "Place",
+                        "name": photographer.city + " in " + photographer.country
+                    }
+                });
             });
         } else if (tag === "*") {
             Array.prototype.forEach.call(this.indexCardsElementContainer.getElementsByTagName("article"), function(htmlElementArticle) {
@@ -173,5 +187,8 @@ export default class HomePage {
                 }
             });
         }
+        // Add the data to the JSON array & render it
+        this.data.offers.offers = offerJsonArray;
+        this.renderSchemaJSONLD();
     }
 }

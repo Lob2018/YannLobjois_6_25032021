@@ -16,6 +16,29 @@ export default class PhotographerPage {
         this.indexCardsElementContainer = document.getElementsByClassName("cards-contents")[0];
         this.photographersTagsToFilter = [];
         this.localStorage = new LocalStorage();
+        // For the JSON-LD
+        this.data = {
+            "@context": "https://schema.org",
+            "@type": "Product",
+            "serviceType": "Media",
+            "provider": {
+                "@type": "Person",
+                "name": this.photographer.name,
+            },
+            "offers": {
+                "@type": "Offer",
+                "description": "Achievements price in euros",
+                "itemOffered": {
+                    "@type": "AggregateOffer",
+                    "priceCurrency": "EUR",
+                    "availability": "https://schema.org/InStock",
+                    "highPrice": getArraysExtremes(this.photographerMedias, "price", "max"),
+                    "lowPrice": getArraysExtremes(this.photographerMedias, "price", "min"),
+                    "offerCount": this.photographerMedias.length,
+                    "offers": []
+                }
+            }
+        };
     }
 
     /**
@@ -59,27 +82,10 @@ export default class PhotographerPage {
      * @memberof PhotographerPage  
      */
     renderSchemaJSONLD() {
-        // Add web semantic
-        const schemaElement = document.getElementById("dynamicJSONLD");
-        schemaElement.text = JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "serviceType": "Freelance photographer",
-            "provider": {
-                "@type": "Person",
-                "name": this.photographer.name,
-            },
-            "offers": {
-                "@type": "Offer",
-                "description": "Achievements price in euros",
-                "itemOffered": {
-                    "@type": "AggregateOffer",
-                    "highPrice": getArraysExtremes(this.photographerMedias, "price", "max"),
-                    "lowPrice": getArraysExtremes(this.photographerMedias, "price", "min"),
-                    "offerCount": this.photographerMedias.length
-                }
-            }
-        });
+        const schemaElement = document.createElement("script");
+        schemaElement.type = "application/ld+json";
+        schemaElement.innerHTML = JSON.stringify(this.data)
+        document.getElementsByTagName('head')[0].appendChild(schemaElement);
     }
 
     /**
@@ -91,7 +97,7 @@ export default class PhotographerPage {
         const titleH1 = document.getElementsByClassName("photographer__h1")[0];
         titleH1.textContent = this.photographer.name;
 
-        const headerInformation = document.getElementsByClassName("header__info--photographer")[0];
+        const headerInformation = document.getElementsByClassName("main__info--photographer")[0];
 
         const blocPhotoContainer = document.createElement("div");
         blocPhotoContainer.classList.add("bloc-photo-container");
@@ -122,17 +128,14 @@ export default class PhotographerPage {
      * @memberof PhotographerPage  
      */
     renderPhotographersCards() {
+        const offerJsonArray = [];
         this.photographerMedias.forEach(photoObject => {
-
             const card = document.createElement("article");
             // Get the photo's name with path (last segment URL, remove extension, replce underscores by white spaces)
             const photoName = ((photoObject.path.substring(photoObject.path.lastIndexOf('/') + 1)).split('.').slice(0, -1).join('.')).replaceAll('_', ' ');
             card.setAttribute("aria-label", "Détails de la photo " + photoName + ", prise par " + this.photographer.name);
-            card.setAttribute("vocab", "https://schema.org/");
-            card.setAttribute("typeof", "Product");
             // card.classList.add("photoObject-card");
             const cardLink = document.createElement("a");
-            cardLink.setAttribute("property", "url");
             cardLink.setAttribute("aria-label", "Lilac breasted roller, closeup view");
             cardLink.tabIndex = 0;
             // cardLink.href = "./photoObject.html";
@@ -140,12 +143,9 @@ export default class PhotographerPage {
             cardLink.addEventListener("click", function() {
                 // preservedThis.localStorage.setStorage("id", photoObject.id);
             }, true);
-
-
             if (photoObject.mediaType === "image") {
                 // A photo
                 const photo = document.createElement("img");
-                photo.setAttribute("property", "image");
                 photo.src = photoObject.path;
                 photo.setAttribute("alt", photoObject.description);
                 cardLink.appendChild(photo);
@@ -154,7 +154,6 @@ export default class PhotographerPage {
                 // A video
                 const videoContainer = document.createElement("span");
                 const video = document.createElement("video");
-                video.setAttribute("property", "image");
                 video.src = photoObject.path;
                 video.setAttribute("alt", photoObject.description);
                 video.textContent = "Your browser does not support the video tag."
@@ -162,15 +161,12 @@ export default class PhotographerPage {
                 cardLink.appendChild(videoContainer);
                 card.appendChild(cardLink);
             }
-
             const titre = document.createElement("h2");
-            titre.setAttribute("property", "name");
             titre.textContent = photoName;
             card.appendChild(titre);
 
             const textContainer = document.createElement("p");
             const texte1 = document.createElement("span");
-            texte1.setAttribute("property", "availableAtOrFrom");
             texte1.classList.add("photo__numberOfLikes");
             const texte2 = document.createElement("span");
             texte2.classList.add("photo__likes");
@@ -183,6 +179,18 @@ export default class PhotographerPage {
             card.appendChild(textContainer);
 
             this.indexCardsElementContainer.appendChild(card);
+            // For the JSONLD
+            offerJsonArray.push({
+                "@type": "Offer",
+                "name": photoName,
+                "image": photoObject.path,
+                "description": photoObject.description,
+                "priceCurrency": "EUR",
+                "price": photoObject.price + "€"
+            });
         });
+        // Add the data to the JSON array & render it
+        this.data.offers.offers = offerJsonArray;
+        this.renderSchemaJSONLD();
     }
 }

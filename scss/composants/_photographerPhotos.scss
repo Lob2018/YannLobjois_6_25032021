@@ -5,34 +5,77 @@
     justify-content: flex-start;
     margin-top: 2em;
     gap: 3.5%;
+    @include mobile {
+        margin-top: 1.3em;
+        justify-content: center;
+        gap: initial;
+    }
+    @include laptop {
+        gap: 3%;
+    }
+    @include xlTV {
+        gap: 1.5%;
+    }
     article {
         min-width: 31%;
         max-width: 31%;
         margin-bottom: 2em;
+        @include mobile {
+            margin-top: 1.2em;
+            max-width: 100%;
+            min-width: 100%;
+        }
+        @include laptop {
+            margin-top: 1.2em;
+            max-width: 45%;
+            min-width: 45%;
+        }
+        @include xlTV {
+            max-width: 500px;
+            min-width: 500px;
+        }
         a {
             flex: 1 0 100%;
             cursor: pointer;
             display: block;
             height: 300px;
+            @include xlTV {
+                max-height: 500px;
+                min-height: 500px;
+            }
             margin-bottom: 0.7em;
             img {
                 border-radius: 5px;
                 height: 300px;
+                @include xlTV {
+                    max-height: 500px;
+                    min-height: 500px;
+                }
                 width: 100%;
                 object-fit: cover;
             }
             span {
+                pointer-events: none;
                 position: relative;
                 display: flex;
                 justify-content: center;
                 align-items: center;
                 height: 300px;
+                @include xlTV {
+                    max-height: 500px;
+                    min-height: 500px;
+                }
                 width: 100%;
                 video {
                     border-radius: 5px;
                     height: 300px;
+                    @include xlTV {
+                        max-height: 500px;
+                        min-height: 500px;
+                    }
                     width: 100%;
                     object-fit: cover;
+                    z-index: -1;
                 }
             }
             span:after {
@@ -44,6 +87,7 @@
                 height: 50%;
                 width: 50%;
                 object-fit: cover;
+                z-index: -1;
             }
         }
         h2 {

@@ -1,8 +1,6 @@
 form[name="filtre"] {
-    *,
-    *::before,
-    *::after {
-        box-sizing: border-box;
+    @include mobile {
+        display: none;
     }
     margin-top: 1rem;
     display: flex;

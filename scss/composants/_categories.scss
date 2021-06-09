@@ -62,8 +62,11 @@ nav[aria-label="All photographers tags"] {
     display: flex;
     flex-wrap: wrap;
     margin-top: 1.2rem;
+    @include mobile {
+        margin-top: 0.3rem;
+    }
     & li {
-        padding: 0.15em 0.15em;
+        padding: 0.15em 0.3em 0em 0em;
         & a {
             position: relative;
             z-index: 1;
@@ -75,6 +78,10 @@ nav[aria-label="All photographers tags"] {
             padding: 0.05em 0.35em;
             border-radius: 12px;
             cursor: pointer;
+            @include mobile {
+                font-size: map-get($size, pageTxtTagMob);
+                border-radius: 11px;
+            }
         }
         & a:hover::after {
             opacity: 1;

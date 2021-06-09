@@ -147,7 +147,7 @@ function photographersPage() {
     photographerPage.renderHeaderInformation();
     // Render all the photographers's photos
     try {
-        photographerPage.renderPhotographersCards();
+        photographerPage.renderPhotographersCards(0);
 
     } catch (error) {
         console.log(error)

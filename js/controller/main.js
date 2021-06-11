@@ -129,7 +129,7 @@ function photographersPage() {
     // RAZ of the tag's filters on logo's click
     const logo = document.getElementsByClassName("logo--photographer")[0];
     logo.addEventListener("click", function() {
-        localStorage.clear();
+        localStorage.removeItem("id");
     }, true);
     // Redirect to home page, if there is no photographer's id in the local storage
     const id = localStorage.getStorage("id");
@@ -138,19 +138,19 @@ function photographersPage() {
     const photographerPage = new PhotographersPage(getArraysJsonElement(photographers, "id", id)[0]);
     // Render the clickable tags list in the header
     photographerPage.renderPhotographerTags();
-    // Show the modal on the contact button's click
-    const btnContact = document.getElementsByClassName("btn__contact")[0];
-    btnContact.addEventListener("click", function() {
-        alert('oo')
-    }, true);
+    // // Show the modal on the contact button's click
+    // const btnContact = document.getElementsByClassName("btn__contact")[0];
+    // btnContact.addEventListener("click", function() {
+    //     alert('oo')
+    // }, true);
     // Render the header information
     photographerPage.renderHeaderInformation();
     // Render all the photographers's photos
+    photographerPage.renderPhotographersCards(0);
+    // Render the photographer's further information
     try {
-        photographerPage.renderPhotographersCards(0);
-
+        photographerPage.renderPhotographersFurtherInformations();
     } catch (error) {
         console.log(error)
     }
-
 }

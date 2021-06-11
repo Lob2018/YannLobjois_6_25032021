@@ -40,9 +40,6 @@ h6 {
     color: map-get($couleurs, coulSecondaire);
     line-height: 1;
     max-width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
     @include mobile {
         font-size: map-get($size, pageTxtNomMob);
         padding: 0.2rem 2rem 0rem 0;

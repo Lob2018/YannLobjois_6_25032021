@@ -7,7 +7,7 @@
  * @returns {number} - The maximum or minimum corresponding value
  */
 export default function(array, value, type) {
-    if (type === "min") {
+    if (type === "max") {
         return array.reduce(
             (max, element) => (element[value] > max ? element[value] : max),
             array[0][value]);

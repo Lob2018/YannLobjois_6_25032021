@@ -12,7 +12,12 @@
     padding: 56px 3rem;
     display: flex;
     position: relative;
-    z-index: 0;
+    z-index: 1;
+    @include laptop {
+        background-color: map-get($couleurs, coulTxtBlanc);
+        padding: 0;
+        flex-wrap: wrap;
+    }
     @include mobile {
         background-color: map-get($couleurs, coulTxtBlanc);
         padding: 0;
@@ -21,6 +26,10 @@
     & .contact-information {
         flex: 1 0 33%;
         max-width: 33%;
+        @include laptop {
+            flex: 1 0 75%;
+            max-width: 75%;
+        }
         @include mobile {
             flex: 1 0 75%;
             max-width: 75%;
@@ -55,6 +64,12 @@
     & .btn-container {
         flex: 1 0 33%;
         max-width: 33%;
+        @include laptop {
+            display: flex;
+            justify-content: space-around;
+            max-width: 100%;
+            order: 1;
+        }
         @include mobile {
             display: flex;
             justify-content: space-around;
@@ -67,6 +82,11 @@
         position: relative;
         display: flex;
         justify-content: flex-end;
+        @include laptop {
+            margin-top: -0.88em;
+            flex: 1 0 25%;
+            max-width: 25%;
+        }
         @include mobile {
             margin-top: -0.88em;
             flex: 1 0 25%;

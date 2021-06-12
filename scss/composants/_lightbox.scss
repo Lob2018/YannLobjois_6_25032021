@@ -58,7 +58,12 @@
         background-position: center;
         object-fit: cover;
         @include mobile {
-            height: 33vh;
+            @media (orientation: portrait) {
+                height: 33vh;
+            }
+            @media (orientation: landscape) {
+                height: 80vh;
+            }
         }
     }
     .video__lightbox {
@@ -66,6 +71,14 @@
         background-repeat: no-repeat;
         background-position: center;
         object-fit: cover;
+        @include mobile {
+            @media (orientation: portrait) {
+                height: 33vh;
+            }
+            @media (orientation: landscape) {
+                height: 80vh;
+            }
+        }
     }
     .figcaption__lightbox {
         color: map-get($couleurs, coulPrimaire);

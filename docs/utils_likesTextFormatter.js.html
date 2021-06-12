@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Class: Media</title>
+    <title>JSDoc: Source: utils/likesTextFormatter.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,186 +17,43 @@
 
 <div id="main">
 
-    <h1 class="page-title">Class: Media</h1>
+    <h1 class="page-title">Source: utils/likesTextFormatter.js</h1>
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2><span class="attribs"><span class="type-signature"></span></span>Media<span class="signature">(objectContent)</span><span class="type-signature"></span></h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-
-    
-
-    
-    <h4 class="name" id="Media"><span class="type-signature"></span>new Media<span class="signature">(objectContent)</span><span class="type-signature"></span></h4>
-    
-
-    
-
-
-
-<div class="description">
-    <p>Classe Media - The media object</p>
-</div>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>objectContent</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>The JSON media data</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="entity_Media.js.html">entity/Media.js</a>, <a href="entity_Media.js.html#line2">line 2</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Format the number of likes
+ * @module
+ * @param {number} num - The number of likes
+ * @param {number} digits - The desired digits to diplay
+ * @returns {string} - The formatted number of likes
+ */
+export default function(num, digits) {
+    const lookup = [
+        { value: 1, symbol: "" },
+        { value: 1e3, symbol: "k" },
+        { value: 1e6, symbol: "M" },
+        { value: 1e9, symbol: "G" },
+        { value: 1e12, symbol: "T" },
+        { value: 1e15, symbol: "P" },
+        { value: 1e18, symbol: "E" }
+    ];
+    //  \. for the separator, * 0 for 0 or more, + for one or more
+    const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+    // Find if there is a lookup
+    var item = lookup.slice().reverse().find(function(item) {
+        return num >= item.value;
+    });
+    // Return likes with symbol or nothing ($1 divide the number by value, put to fixed number, remove leading zeros ($1 for the first () in the regex))
+    return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
+}</code></pre>
+        </article>
+    </section>
 
 
 

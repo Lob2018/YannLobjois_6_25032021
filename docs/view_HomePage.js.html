@@ -42,10 +42,32 @@ export default class HomePage {
         this.photographers = photographers;
         this.indexPhotographersTagLinks = document.getElementsByClassName("index-categories")[0];
         this.indexCardsElementContainer = document.getElementsByClassName("cards-photographs")[0];
-        this.photographsHighPrice = photographsHighPrice;
-        this.photographsLowPrice = photographsLowPrice;
         this.photographersTagsToFilter = [];
         this.localStorage = new LocalStorage();
+        // For the JSON-LD
+        this.data = {
+            "@context": "https://schema.org/",
+            "@type": "Offer",
+            "name": "FishEye",
+            "url": "",
+            "image": "",
+            "description": "Freelance photographers",
+            "price": "",
+            "priceCurrency": "EUR",
+            "seller": {
+                "@type": "Organization",
+                "name": "FishEye",
+                "logo": "https://lob2018.github.io/YannLobjois_6_25032021/public/img/logo/FishEye.svg",
+                "url": "https://lob2018.github.io/YannLobjois_6_25032021/index.html"
+            },
+            "offers": {
+                "@type": "AggregateOffer",
+                "highPrice": photographsHighPrice + "€",
+                "lowPrice": photographsLowPrice + "€",
+                "offerCount": this.photographers.length,
+                "offers": []
+            }
+        }
     }
 
     /**
@@ -90,27 +112,10 @@ export default class HomePage {
      * @memberof HomePage  
      */
     renderSchemaJSONLD() {
-        const schemaElement = document.getElementById("dynamicJSONLD");
-        schemaElement.text = JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Service",
-            "serviceType": "Freelance photographers website",
-            "provider": {
-                "@type": "Organization",
-                "legalName": "FishEye",
-                "logo": "./public/img/logo/FishEye.png"
-            },
-            "offers": {
-                "@type": "Offer",
-                "description": "Photographers rates in Euros",
-                "itemOffered": {
-                    "@type": "AggregateOffer",
-                    "highPrice": this.photographsHighPrice + "EUR",
-                    "lowPrice": this.photographsLowPrice + "EUR",
-                    "offerCount": this.photographers.length
-                },
-            }
-        });
+        const schemaElement = document.createElement("script");
+        schemaElement.type = "application/ld+json";
+        schemaElement.innerHTML = JSON.stringify(this.data)
+        document.getElementsByTagName('head')[0].appendChild(schemaElement);
     }
 
     /**
@@ -120,10 +125,11 @@ export default class HomePage {
      * @param {string} tag - The tag to render
      */
     renderPhotographersCards(tag) {
+        const offerJsonArray = [];
         if (tag === "") {
             this.photographers.forEach(photographer => {
                 const card = document.createElement("article");
-                card.setAttribute("aria-label", "Présentation de " + photographer.name);
+                card.setAttribute("aria-label", "Page de " + photographer.name);
                 card.classList.add("photographer-card");
                 const cardLink = document.createElement("a");
                 cardLink.setAttribute("aria-label", "Page de " + photographer.name);
@@ -133,11 +139,11 @@ export default class HomePage {
                 cardLink.addEventListener("click", function() {
                     preservedThis.localStorage.setStorage("id", photographer.id);
                 }, true);
-                const photoJGP = "./public/img/photographers/" + photographer.id + ".jpg";
-                const photoContainer = document.createElement("picture");
-                photoContainer.style.backgroundImage = "url('" + photoJGP + "')";
+                const mediaPath = "./public/img/photographers/" + photographer.id + ".jpg";
+                const photoContainer = document.createElement("span");
+                photoContainer.classList.add("photo-container");
                 const photo = document.createElement("img");
-                photo.src = photoJGP;
+                photo.src = mediaPath;
                 photo.setAttribute("alt", "Photo de " + photographer.name);
                 photoContainer.appendChild(photo);
                 cardLink.appendChild(photoContainer);
@@ -174,6 +180,21 @@ export default class HomePage {
                 });
                 card.appendChild(tags);
                 this.indexCardsElementContainer.appendChild(card);
+                // For the JSONLD
+                offerJsonArray.push({
+                    "@type": "Offer",
+                    "name": photographer.name,
+                    "description": "Photographer's day service",
+                    "priceCurrency": "EUR",
+                    "price": photographer.price + "€",
+                    "url": cardLink.href,
+                    "image": mediaPath,
+                    "slogan": photographer.tagline,
+                    "availableAtOrFrom": {
+                        "@type": "Place",
+                        "name": photographer.city + " in " + photographer.country
+                    }
+                });
             });
         } else if (tag === "*") {
             Array.prototype.forEach.call(this.indexCardsElementContainer.getElementsByTagName("article"), function(htmlElementArticle) {
@@ -194,6 +215,9 @@ export default class HomePage {
                 }
             });
         }
+        // Add the data to the JSON array &amp; render it
+        this.data.offers.offers = offerJsonArray;
+        this.renderSchemaJSONLD();
     }
 }</code></pre>
         </article>
@@ -205,13 +229,13 @@ export default class HomePage {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils_getArraysExtremes.html">utils/getArraysExtremes</a></li><li><a href="module-utils_getArraysJsonElement.html">utils/getArraysJsonElement</a></li></ul><h3>Classes</h3><ul><li><a href="FishEyeFactory.html">FishEyeFactory</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="LoadData.html">LoadData</a></li><li><a href="LocalStorage.html">LocalStorage</a></li><li><a href="Media.html">Media</a></li><li><a href="Message.html">Message</a></li><li><a href="Photographer.html">Photographer</a></li><li><a href="PhotographerPage.html">PhotographerPage</a></li></ul><h3>Global</h3><ul><li><a href="global.html#factoring">factoring</a></li><li><a href="global.html#homePage">homePage</a></li><li><a href="global.html#loadData">loadData</a></li><li><a href="global.html#photographersPage">photographersPage</a></li></ul>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-utils_getArraysExtremes.html">utils/getArraysExtremes</a></li><li><a href="module-utils_getArraysJsonElement.html">utils/getArraysJsonElement</a></li><li><a href="module-utils_likesTextFormatter.html">utils/likesTextFormatter</a></li></ul><h3>Classes</h3><ul><li><a href="FishEyeFactory.html">FishEyeFactory</a></li><li><a href="HomePage.html">HomePage</a></li><li><a href="LoadData.html">LoadData</a></li><li><a href="LocalStorage.html">LocalStorage</a></li><li><a href="Media.html">Media</a></li><li><a href="Message.html">Message</a></li><li><a href="Photographer.html">Photographer</a></li><li><a href="PhotographerPage.html">PhotographerPage</a></li></ul><h3>Global</h3><ul><li><a href="global.html#factoring">factoring</a></li><li><a href="global.html#homePage">homePage</a></li><li><a href="global.html#loadData">loadData</a></li><li><a href="global.html#photographersPage">photographersPage</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Thu Jun 03 2021 12:31:33 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sat Jun 12 2021 15:31:13 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>

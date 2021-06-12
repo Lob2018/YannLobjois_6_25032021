@@ -374,25 +374,27 @@ export default class PhotographerPage {
         for (let i = 0; i < this.formInputs.length; i++) {
             this.formInputs[i].addEventListener('invalid', function(event) {
                 event.preventDefault();
-                preservedThis.checkInputsErrors(preservedThis.formInputs[i]);
-                preservedThis.validate();
+                preservedThis.checkInputsErrorsForm(preservedThis.formInputs[i]);
+                preservedThis.validateForm();
             });
             this.formInputs[i].addEventListener('blur', function() {
-                preservedThis.checkInputsErrors(preservedThis.formInputs[i]);
+                preservedThis.checkInputsErrorsForm(preservedThis.formInputs[i]);
             });
         }
         // the form submit listener
         this.form.addEventListener("submit", function(event) {
             event.preventDefault();
-            preservedThis.validate();
+            preservedThis.validateForm();
         });
     }
 
     /**
      *  Check the contact form inputs errors with the listeners
+     * @function
+     * @memberof PhotographerPage  
      * @param {object} el - The input element
      */
-    checkInputsErrors(el) {
+    checkInputsErrorsForm(el) {
         if (el.validity.valid) {
             el.parentElement.setAttribute("data-error-visible", "false");
         } else {
@@ -402,9 +404,11 @@ export default class PhotographerPage {
 
     /**
      * The contact form validation 
+     * @function
+     * @memberof PhotographerPage  
      * @returns {boolean} - TRUE the form been sent, FALSE it contain errors
      */
-    validate() {
+    validateForm() {
         // Check all text inputs error
         let validInputs = true;
         for (let input of this.formInputs) {
@@ -425,6 +429,8 @@ export default class PhotographerPage {
 
     /**
      * Initialize the photo light box modal
+     * @function
+     * @memberof PhotographerPage  
      * @function
      * @memberof PhotographerPage  
      */
@@ -479,6 +485,8 @@ export default class PhotographerPage {
 
     /**
      * Render the asked photo (previous or next)
+     * @function
+     * @memberof PhotographerPage  
      * @param {number} num - The number, -1 for previous and 1 for next
      */
     photoLightBoxNavigation(num) {
@@ -504,6 +512,8 @@ export default class PhotographerPage {
 
     /**
      * Render the photo light box modal
+     * @function
+     * @memberof PhotographerPage  
      * @param {object} photoObject - The current photo object
      */
     renderPhotoLightboxModal(photoObject) {

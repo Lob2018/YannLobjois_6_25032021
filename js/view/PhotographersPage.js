@@ -187,7 +187,7 @@ export default class PhotographerPage {
             }
             // Initialize the number of likes
             if (num === 0) {
-                if (this.localStorage.getStorage("photo-" + photoObject.id) === null) {} else {
+                if (this.localStorage.getStorage("photo-" + photoObject.id) != null) {
                     photoObject.likes = parseInt(photoObject.likes) + 1 + "";
                 }
                 texte1.textContent = likesTextFormatter(photoObject.likes, 0);

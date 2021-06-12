@@ -1,12 +1,13 @@
-export default {
+module.exports = {
     "env": {
         "browser": true,
-        "es2021": true,
+        "es2021": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
-        "ecmaVersion": 2021,
+        "ecmaVersion": 12,
         "sourceType": "module"
     },
-    "rules": {}
+    "rules": {
+    }
 };

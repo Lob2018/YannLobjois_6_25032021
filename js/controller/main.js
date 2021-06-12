@@ -29,7 +29,7 @@ const localStorage = new LocalStorage();
 /**
  * Initialize to load the data, factory and store it in loadData, then redirect to the corresponding page
  */
-const loadData = new LoadData('./data/FishEyeDataFR.json').then(data => {
+new LoadData('./data/FishEyeDataFR.json').then(data => {
     return factoring(data);
 }).then(code => {
     if (code == 0) {

@@ -53,7 +53,7 @@
         <!-- THE MODAL FORM -->
         <div class="bground">
             <div class="content" role="dialog" aria-labelledby="form__title">
-                <span class="close" aria-label="Close Contact form" title="Fermer"></span>
+                <span class="close" role="button" aria-label="Close Contact form" title="Fermer"></span>
                 <div class="modal-body">
                     <form name="reserve">
                         <h1 id="form__title"></h1>
@@ -73,7 +73,7 @@
                             <label id="your__message" for="yourMessage">Votre message</label><br>
                             <textarea aria-label="Your message" aria-labelledby="your__message" rows="10" cols="30" id="yourMessage" class="text-control" type="text" id="message" name="message" required></textarea>
                         </div>
-                        <input class="btn-submit" aria-label="Envoyer" type="submit" class="button" value="Envoyer" />
+                        <input role="button" class="btn-submit" aria-label="Envoyer" type="submit" class="button" value="Envoyer" />
                     </form>
                 </div>
             </div>
@@ -81,33 +81,15 @@
         <!-- END OF THE MODAL FORM -->
 
         <!-- THE MODAL LIGHTBOX -->
-        <!-- <div class="bground">
-            <div class="content" role="dialog" aria-labelledby="form__title">
-                <span class="close" aria-label="Close Contact form"></span>
-                <div class="modal-body">
-                    <form name="reserve">
-                        <h1 id="form__title"></h1>
-                        <div class="formData" data-error-visible="false" data-error="Veuillez entrer 2 caractères ou plus pour le champ du prénom.">
-                            <label id="your__prenom" for="prenom">Prénom</label><br>
-                            <input id="prenom" aria-label="First name" aria-labelledby="your__prenom" class="text-control" type="text" id="first" name="first" minlength="2" required/>
-                        </div>
-                        <div class="formData" data-error-visible="false" data-error="Veuillez entrer 2 caractères ou plus pour le champ du nom.">
-                            <label id="your__name" for="nom">Nom</label><br>
-                            <input id="nom" aria-label="Last name" aria-labelledby="your__name" class="text-control" type="text" id="last" name="last" minlength="2" required/>
-                        </div>
-                        <div class="formData" data-error-visible="false" data-error="Vous devez entrer votre adresse mail.">
-                            <label id="your__email" for="mail">Email</label><br>
-                            <input id="mail" aria-label="Email" aria-labelledby="your__email" class="text-control" type="email" id="email" name="email" required/>
-                        </div>
-                        <div class="formData" data-error-visible="false" data-error="Veuillez entrer 2 caractères ou plus pour le champ du message.">
-                            <label id="your__message" for="yourMessage">Votre message</label><br>
-                            <textarea aria-label="Your message" aria-labelledby="your__message" rows="10" cols="30" id="yourMessage" class="text-control" type="text" id="message" name="message" required></textarea>
-                        </div>
-                        <input class="btn-submit" aria-label="Envoyer" type="submit" class="button" value="Envoyer" />
-                    </form>
-                </div>
+        <div class="bground-lightbox">
+            <div class="content__lightbox" role="dialog" aria-label="Image closeup view">
+                <span class="previous__lightbox" role="button" aria-label="Previous image"></span>
+                <figure class="figure__lightbox">
+                </figure>
+                <span class="next__lightbox" role="button" aria-label="Next image"></span>
+                <span class="close__lightbox" role="button" aria-label="Close loseup view" title="Fermer"></span>
             </div>
-        </div> -->
+        </div>
         <!-- END OF THE MODAL LIGHTBOX -->
     </main>
     <footer></footer>

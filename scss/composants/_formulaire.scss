@@ -14,8 +14,8 @@
     margin: 5% auto;
     width: 669px;
     min-height: 900px;
-    animation-name: modalopen;
-    animation-duration: var(--modal-duration);
+    animation-name: modalopen--form;
+    animation-duration: 0.3s;
     background-color: map-get($couleurs, coulBtn);
     border-radius: 5px;
     overflow: hidden;
@@ -25,8 +25,7 @@
     @include mobile {
         width: 100%;
         margin: 0 auto;
-        height: 100%;
-        min-height: 812px;
+        min-height: 100%;
     }
 }
 
@@ -86,6 +85,7 @@ input.btn-submit {
         margin: 0.7em auto 0 auto;
         line-height: 0;
         padding: 1em 0;
+        margin-bottom: 1em;
     }
 }
 
@@ -155,5 +155,15 @@ input.btn-submit {
         height: map-get($size, fermerModaleHeightMob);
         background-repeat: no-repeat;
         background-position: center;
+    }
+}
+
+@keyframes modalopen--form {
+    from {
+        opacity: 0;
+        transform: translateY(-150px);
+    }
+    to {
+        opacity: 1;
     }
 }

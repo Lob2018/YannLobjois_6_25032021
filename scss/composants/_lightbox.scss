@@ -1,0 +1,124 @@
+.bground-lightbox {
+    display: none;
+    position: fixed;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: map-get($couleurs, coulTxtBlanc);
+}
+
+.content__lightbox {
+    display: flex;
+    align-items: center;
+    margin: 0 auto 0 auto;
+    padding-top: 40px;
+    width: 87%;
+    animation-name: modalopen;
+    animation-duration: 0.3s;
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    @include mobile {
+        padding-top: 0px;
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+.previous__lightbox {
+    position: relative;
+    background-image: url("data:image/svg+xml,%3Csvg width='30' height='48' viewBox='0 0 30 48' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M29.6399 42.36L11.3199 24L29.6399 5.64L23.9999 -2.46532e-07L-0.000107861 24L23.9999 48L29.6399 42.36Z' fill='%23911C1C'/%3E%3C/svg%3E%0A");
+    background-repeat: no-repeat;
+    min-width: 30px;
+    height: 48px;
+    margin: 0 2em 0 1.9em;
+    cursor: pointer;
+    @include mobile {
+        margin: 0 0.7em 0 1.3em;
+        background-image: url("data:image/svg+xml,%3Csvg width='9' height='14' viewBox='0 0 9 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.97339 12.0593L3.92875 7.00005L8.97339 1.94085L7.42035 0.386719L0.81165 7.00005L7.42034 13.6134L8.97339 12.0593Z' fill='%23911C1C'/%3E%3C/svg%3E%0A");
+        width: 9px;
+        min-width: 9px;
+        height: 14px;
+    }
+}
+
+.figure__lightbox {
+    display: flex;
+    flex-flow: column;
+    width: 90%;
+    .image__lightbox {
+        width: 100%;
+        height: 88vh;
+        background-repeat: no-repeat;
+        background-position: center;
+        object-fit: cover;
+        @include mobile {
+            height: 33vh;
+        }
+    }
+    .video__lightbox {
+        width: 100%;
+        background-repeat: no-repeat;
+        background-position: center;
+        object-fit: cover;
+    }
+    .figcaption__lightbox {
+        color: map-get($couleurs, coulPrimaire);
+        padding-top: 0.4em;
+        font-size: map-get($size, modaleTxtMob);
+        @include mobile {
+            font-size: map-get($size, pageTxtDescMob);
+        }
+    }
+}
+
+.next__lightbox {
+    position: relative;
+    background-image: url("data:image/svg+xml,%3Csvg width='30' height='48' viewBox='0 0 30 48' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.360108 5.64L18.6801 24L0.360107 42.36L6.00011 48L30.0001 24L6.00011 3.88195e-06L0.360108 5.64Z' fill='%23911C1C'/%3E%3C/svg%3E%0A");
+    background-repeat: no-repeat;
+    min-width: 30px;
+    height: 48px;
+    cursor: pointer;
+    margin: 0 1.9em 0 2em;
+    @include mobile {
+        margin: 0 1.3em 0 0.7em;
+        background-image: url("data:image/svg+xml,%3Csvg width='9' height='14' viewBox='0 0 9 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0.0266115 1.94074L5.07125 6.99995L0.0266113 12.0591L1.57965 13.6133L8.18835 6.99995L1.57965 0.38661L0.0266115 1.94074Z' fill='%23911C1C'/%3E%3C/svg%3E%0A");
+        width: 9px;
+        min-width: 9px;
+        height: 14px;
+    }
+}
+
+.close__lightbox {
+    position: absolute;
+    cursor: pointer;
+    z-index: 3;
+    background-image: url("data:image/svg+xml,%3Csvg width='42' height='42' viewBox='0 0 42 42' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M42 4.23L37.77 0L21 16.77L4.23 0L0 4.23L16.77 21L0 37.77L4.23 42L21 25.23L37.77 42L42 37.77L25.23 21L42 4.23Z' fill='%23911C1C'/%3E%3C/svg%3E%0A");
+    right: 1.9em;
+    top: 42px;
+    width: 42px;
+    height: 42px;
+    @include mobile {
+        background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11.5652 1.2989L10.4004 0.133301L5.78261 4.75437L1.16478 0.133301L0 1.2989L4.61782 5.91997L0 10.541L1.16478 11.7066L5.78261 7.08557L10.4004 11.7066L11.5652 10.541L6.94739 5.91997L11.5652 1.2989Z' fill='%23911C1C'/%3E%3C/svg%3E%0A");
+        right: 1em;
+        top: 0;
+        width: map-get($size, fermerModaleHeightMob);
+        height: map-get($size, fermerModaleHeightMob);
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
+
+@keyframes modalopen {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

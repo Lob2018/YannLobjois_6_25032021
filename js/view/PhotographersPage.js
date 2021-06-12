@@ -41,7 +41,6 @@ export default class PhotographerPage {
                 }
             }
         };
-        this.initializeContactForm();
     }
 
     /**
@@ -133,8 +132,15 @@ export default class PhotographerPage {
             cardLink.setAttribute("aria-label", "Lilac breasted roller, closeup view");
             cardLink.tabIndex = 0;
             cardLink.addEventListener("click", function() {
-                // preservedThis.localStorage.setStorage("id", photoObject.id);
+                preservedThis.renderPhotoLightboxModal(photoObject);
             }, true);
+            // Close hit enter listener
+            cardLink.addEventListener("keyup", function(event) {
+                if (event.key === 'Enter') {
+                    event.preventDefault();
+                    preservedThis.renderPhotoLightboxModal(photoObject);
+                }
+            });
             if (photoObject.mediaType === "image") {
                 // A photo
                 const photo = document.createElement("img");
@@ -313,7 +319,7 @@ export default class PhotographerPage {
     }
 
     /**
-     * Initialize the contact form
+     * Initialize the contact form modal
      * @function
      * @memberof PhotographerPage  
      */
@@ -338,7 +344,7 @@ export default class PhotographerPage {
         this.formData = document.getElementsByClassName("formData")[0];
         this.modalBtnClose = document.getElementsByClassName("close")[0];
         document.getElementsByClassName("close")[0].tabIndex = 0;
-        // Like hit enter listener
+        // CLose hit enter listener
         document.getElementsByClassName("close")[0].addEventListener("keyup", function(event) {
             if (event.key === 'Enter') {
                 event.preventDefault();
@@ -407,12 +413,143 @@ export default class PhotographerPage {
         // If it's ok send the form and close the form modal
         if (validInputs) {
             const formData = new FormData(this.form);
-            for (var pair of formData.entries()) {
+            for (let pair of formData.entries()) {
                 console.log(pair[0] + ': ' + pair[1]);
             }
             this.modalbg.style.display = "none";
             return true;
         } else return false;
+    }
+
+
+
+    /**
+     * Initialize the photo light box modal
+     * @function
+     * @memberof PhotographerPage  
+     */
+    initializePhotoLightboxModal() {
+        const preservedThis = this;
+        this.modalPhotoBg = document.getElementsByClassName("bground-lightbox")[0];
+        this.modalPhotoFigure = document.getElementsByClassName("figure__lightbox")[0];
+        this.modalPhotoBtnClose = document.getElementsByClassName("close__lightbox")[0];
+        this.modalPhotoPrevious = document.getElementsByClassName("previous__lightbox")[0];
+        this.modalPhotoPrevious.tabIndex = 0;
+        document.getElementsByClassName("close__lightbox")[0].tabIndex = 0;
+        this.modalPhotoNext = document.getElementsByClassName("next__lightbox")[0];
+        this.modalPhotoNext.tabIndex = 0;
+        // Close hit enter listener
+        document.getElementsByClassName("close__lightbox")[0].addEventListener("keyup", function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementsByClassName("close__lightbox")[0].click();
+            }
+        });
+        // Close modal listener
+        this.modalPhotoBtnClose.addEventListener("click", function() {
+            preservedThis.modalPhotoBg.style.display = "none";
+            // Remove the figure content
+            preservedThis.modalPhotoFigure.innerHTML = "";
+            // Update the  aria visibility
+            document.getElementsByClassName("photographer--main")[0].setAttribute("aria-hidden", "false");
+            document.getElementsByClassName("bground-lightbox")[0].setAttribute("aria-hidden", "true");
+            document.getElementsByClassName("photographer--main")[0].focus();
+        });
+        // Light box media navigation for previous button
+        this.modalPhotoPrevious.addEventListener("click", function() {
+            preservedThis.photoLightBoxNavigation(-1);
+        });
+        this.modalPhotoPrevious.addEventListener("keyup", function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                preservedThis.photoLightBoxNavigation(-1);
+            }
+        });
+        // Light box media navigation for next button
+        this.modalPhotoNext.addEventListener("click", function() {
+            preservedThis.photoLightBoxNavigation(1);
+        });
+        this.modalPhotoNext.addEventListener("keyup", function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                preservedThis.photoLightBoxNavigation(1);
+            }
+        });
+    }
+
+    /**
+     * Render the asked photo (previous or next)
+     * @param {number} num - The number, -1 for previous and 1 for next
+     */
+    photoLightBoxNavigation(num) {
+        // Get the stored photo id
+        let photoId = this.localStorage.getStorage("current-lightbox-photo-id");
+        // get the previous media
+        let mediasArraySize = this.photographerMedias.length;
+        for (let i = 0; i < mediasArraySize; i++) {
+            if (this.photographerMedias[i].id == photoId) {
+                if (num == -1) {
+                    if (i == 0) {
+                        this.renderPhotoLightboxModal(this.photographerMedias[mediasArraySize - 1]);
+                    } else this.renderPhotoLightboxModal(this.photographerMedias[i - 1]);
+                } else {
+                    if (i == (mediasArraySize - 1)) {
+                        this.renderPhotoLightboxModal(this.photographerMedias[0]);
+                    } else this.renderPhotoLightboxModal(this.photographerMedias[i + 1]);
+                }
+            }
+        }
+    }
+
+
+    /**
+     * Render the photo light box modal
+     * @param {object} photoObject - The current photo object
+     */
+    renderPhotoLightboxModal(photoObject) {
+        // Store the current media id in the local storage
+        this.localStorage.setStorage("current-lightbox-photo-id", photoObject.id);
+
+        // Remove the figure content
+        this.modalPhotoFigure.innerHTML = "";
+        const figure = document.getElementsByClassName("figure__lightbox")[0];
+
+        if (photoObject.mediaType === "image") {
+            // A photo
+            const photo = document.createElement("img");
+            photo.src = photoObject.path;
+            photo.setAttribute("alt", photoObject.description);
+            photo.setAttribute("aria-label", "Lilac breasted roller");
+            photo.className = "image__lightbox";
+            figure.appendChild(photo);
+        } else {
+            // A video
+            const videoContainer = document.createElement("span");
+            const video = document.createElement("video");
+            video.controls = true;
+            video.src = photoObject.path;
+            video.setAttribute("alt", photoObject.description);
+            video.setAttribute("aria-label", "Lilac breasted roller");
+            video.className = "video__lightbox";
+            video.textContent = "Your browser does not support the video tag."
+                // Add captions (fictitious)
+            let track = document.createElement("track");
+            track.src = "./public/videos/videos_fr.vtt";
+            track.kind = "captions";
+            track.srclang = "fr";
+            track.label = "French";
+            video.appendChild(track);
+            videoContainer.appendChild(video);
+            figure.appendChild(videoContainer);
+        }
+        const figCaption = document.createElement("FIGCAPTION");
+        figCaption.className = "figcaption__lightbox";
+        figCaption.textContent = photoObject.name;
+        figure.appendChild(figCaption);
+        this.modalPhotoBg.style.display = "block";
+        document.getElementsByClassName("photographer--main")[0].setAttribute("aria-hidden", "true");
+        this.modalPhotoBg.setAttribute("aria-hidden", "false");
+        document.getElementsByClassName("previous__lightbox")[0].focus();
     }
 
 }

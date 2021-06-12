@@ -69,7 +69,6 @@ nav[aria-label="All photographers tags"] {
         padding: 0.15em 0.3em 0em 0em;
         & a {
             position: relative;
-            z-index: 1;
             vertical-align: top;
             font-weight: 500;
             font-size: map-get($size, pageTxtTag);

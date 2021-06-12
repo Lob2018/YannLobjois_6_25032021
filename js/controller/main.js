@@ -138,19 +138,14 @@ function photographersPage() {
     const photographerPage = new PhotographersPage(getArraysJsonElement(photographers, "id", id)[0]);
     // Render the clickable tags list in the header
     photographerPage.renderPhotographerTags();
-    // // Show the modal on the contact button's click
-    // const btnContact = document.getElementsByClassName("btn__contact")[0];
-    // btnContact.addEventListener("click", function() {
-    //     alert('oo')
-    // }, true);
     // Render the header information
     photographerPage.renderHeaderInformation();
     // Render all the photographers's photos
     photographerPage.renderPhotographersCards(0);
     // Render the photographer's further information
-    try {
-        photographerPage.renderPhotographersFurtherInformations();
-    } catch (error) {
-        console.log(error)
-    }
+    photographerPage.renderPhotographersFurtherInformations();
+    // Prepare the contact modal
+    photographerPage.initializeContactForm();
+    // Prepare the photo modal
+    photographerPage.initializePhotoLightboxModal();
 }

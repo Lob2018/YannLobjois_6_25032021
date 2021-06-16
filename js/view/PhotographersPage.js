@@ -344,13 +344,6 @@ export default class PhotographerPage {
         this.formData = document.getElementsByClassName("formData")[0];
         this.modalBtnClose = document.getElementsByClassName("close")[0];
         document.getElementsByClassName("close")[0].tabIndex = 0;
-        // CLose hit enter listener
-        document.getElementsByClassName("close")[0].addEventListener("keyup", function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                document.getElementsByClassName("close")[0].click();
-            }
-        });
         // launch modal event
         const preservedThis = this;
         modalBtn.addEventListener("click",
@@ -362,13 +355,27 @@ export default class PhotographerPage {
                 document.getElementsByClassName("bground")[0].setAttribute("aria-hidden", "false");
                 document.getElementById("prenom").focus();
             });
-        // close modal event
+        // close modal listener
         this.modalBtnClose.addEventListener("click", function() {
             preservedThis.modalbg.style.display = "none";
             // Update the  aria visibility
             document.getElementsByClassName("photographer--main")[0].setAttribute("aria-hidden", "false");
             document.getElementsByClassName("bground")[0].setAttribute("aria-hidden", "true");
             document.getElementsByClassName("photographer--main")[0].focus();
+        });
+        // Close modal when hit enter with focus on close element
+        document.getElementsByClassName("close")[0].addEventListener("keyup", function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementsByClassName("close")[0].click();
+            }
+        });
+        // Close modal when escape key is pressed
+        document.addEventListener("keyup", function(event) {
+            if ((preservedThis.modalbg.getAttribute("aria-hidden") == "false") &&
+                event.key === 'Escape') {
+                document.getElementsByClassName("close")[0].click();
+            }
         });
         // inputs text listeners (invalid and blur)
         for (let i = 0; i < this.formInputs.length; i++) {
@@ -431,8 +438,6 @@ export default class PhotographerPage {
      * Initialize the photo light box modal
      * @function
      * @memberof PhotographerPage  
-     * @function
-     * @memberof PhotographerPage  
      */
     initializePhotoLightboxModal() {
         const preservedThis = this;
@@ -444,13 +449,6 @@ export default class PhotographerPage {
         document.getElementsByClassName("close__lightbox")[0].tabIndex = 0;
         this.modalPhotoNext = document.getElementsByClassName("next__lightbox")[0];
         this.modalPhotoNext.tabIndex = 0;
-        // Close hit enter listener
-        document.getElementsByClassName("close__lightbox")[0].addEventListener("keyup", function(event) {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                document.getElementsByClassName("close__lightbox")[0].click();
-            }
-        });
         // Close modal listener
         this.modalPhotoBtnClose.addEventListener("click", function() {
             preservedThis.modalPhotoBg.style.display = "none";
@@ -460,6 +458,20 @@ export default class PhotographerPage {
             document.getElementsByClassName("photographer--main")[0].setAttribute("aria-hidden", "false");
             document.getElementsByClassName("bground-lightbox")[0].setAttribute("aria-hidden", "true");
             document.getElementsByClassName("photographer--main")[0].focus();
+        });
+        // Close modal when hit enter with focus on close element
+        document.getElementsByClassName("close__lightbox")[0].addEventListener("keyup", function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                document.getElementsByClassName("close__lightbox")[0].click();
+            }
+        });
+        // Close modal when escape key is pressed
+        document.addEventListener("keyup", function(event) {
+            if ((preservedThis.modalPhotoBg.getAttribute("aria-hidden") == "false") &&
+                event.key === 'Escape') {
+                document.getElementsByClassName("close__lightbox")[0].click();
+            }
         });
         // Light box media navigation for previous button
         this.modalPhotoPrevious.addEventListener("click", function() {
@@ -482,6 +494,8 @@ export default class PhotographerPage {
             }
         });
     }
+
+
 
     /**
      * Render the asked photo (previous or next)
@@ -561,5 +575,4 @@ export default class PhotographerPage {
         this.modalPhotoBg.setAttribute("aria-hidden", "false");
         document.getElementsByClassName("previous__lightbox")[0].focus();
     }
-
 }

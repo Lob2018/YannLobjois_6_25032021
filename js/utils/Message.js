@@ -1,4 +1,5 @@
 export default class Message {
+    // ESLint uses Espree as it parser and Espree does not support class field syntax
     static instance;
     /**
      * Classe Message - Give a message to the user type 0 for normal message and -1 for error - Singleton design pattern

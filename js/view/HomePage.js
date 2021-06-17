@@ -71,6 +71,12 @@ export default class HomePage {
             preservedThis.renderPhotographersCards(tag);
             preservedThis.localStorage.setStorage("tag", tag);
         }, true);
+        tagLink.addEventListener("keyup", function(event) {
+            if (event.key === 'Enter') {
+                preservedThis.renderPhotographersCards(tag);
+                preservedThis.localStorage.setStorage("tag", tag);
+            }
+        });
         const tagList = document.createElement("LI");
         tagList.setAttribute("role", "none");
         tagList.appendChild(tagLink);

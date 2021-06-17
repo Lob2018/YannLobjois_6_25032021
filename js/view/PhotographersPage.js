@@ -72,6 +72,12 @@ export default class PhotographerPage {
             preservedThis.localStorage.setStorage("tag", tag);
             window.location.href = "./index.html";
         }, true);
+        tagLink.addEventListener("keyup", function(event) {
+            if (event.key === 'Enter') {
+                preservedThis.localStorage.setStorage("tag", tag);
+                window.location.href = "./index.html";
+            }
+        });
         const tagList = document.createElement("LI");
         tagList.setAttribute("role", "none");
         tagList.appendChild(tagLink);
@@ -483,12 +489,24 @@ export default class PhotographerPage {
                 preservedThis.photoLightBoxNavigation(-1);
             }
         });
+        this.modalPhotoPrevious.addEventListener("keyup", function(event) {
+            if (event.key === 'ArrowLeft') {
+                event.preventDefault();
+                preservedThis.photoLightBoxNavigation(-1);
+            }
+        });
         // Light box media navigation for next button
         this.modalPhotoNext.addEventListener("click", function() {
             preservedThis.photoLightBoxNavigation(1);
         });
         this.modalPhotoNext.addEventListener("keyup", function(event) {
             if (event.key === 'Enter') {
+                event.preventDefault();
+                preservedThis.photoLightBoxNavigation(1);
+            }
+        });
+        this.modalPhotoPrevious.addEventListener("keyup", function(event) {
+            if (event.key === 'ArrowRight') {
                 event.preventDefault();
                 preservedThis.photoLightBoxNavigation(1);
             }
